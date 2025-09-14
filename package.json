@@ -10,9 +10,11 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest --watch",
+    "test:ci": "vitest run",
     "format": "prettier -w .",
     "test:e2e": "playwright test",
-    "playwright:install": "playwright install --with-deps"
+    "playwright:install": "playwright install --with-deps",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "15.5.3",
@@ -34,6 +36,15 @@
     "jsdom": "25",
     "tailwindcss": "4",
     "typescript": "5",
-    "vitest": "2"
+    "vitest": "2",
+    "husky": "9",
+    "lint-staged": "15",
+    "prettier": "3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md}": [
+      "prettier -w",
+      "eslint --fix"
+    ]
   }
 }
