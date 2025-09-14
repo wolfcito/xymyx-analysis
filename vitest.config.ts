@@ -7,6 +7,13 @@ export default defineConfig({
     setupFiles: ['./src/setup-tests.ts'],
     coverage: {
       provider: 'v8',
+      include: ['src/lib/**'],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 70,
+        statements: 80,
+      },
     },
     globals: true,
     include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
@@ -20,4 +27,3 @@ export default defineConfig({
     jsx: 'automatic',
   },
 });
-

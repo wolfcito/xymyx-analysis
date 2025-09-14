@@ -10,27 +10,30 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "format": "prettier -w ."
+    "format": "prettier -w .",
+    "test:e2e": "playwright test",
+    "playwright:install": "playwright install --with-deps"
   },
   "dependencies": {
+    "next": "15.5.3",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.3"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "5",
+    "@eslint/eslintrc": "3",
+    "@playwright/test": "1",
+    "@tailwindcss/postcss": "4",
+    "@testing-library/jest-dom": "6",
+    "@testing-library/react": "16",
+    "@testing-library/user-event": "14",
     "@types/node": "20",
     "@types/react": "19",
     "@types/react-dom": "19",
-    "@tailwindcss/postcss": "4",
-    "tailwindcss": "4",
     "eslint": "9",
     "eslint-config-next": "15.5.3",
-    "@eslint/eslintrc": "3",
-    "vitest": "2",
-    "@testing-library/react": "16",
-    "@testing-library/jest-dom": "6",
-    "@testing-library/user-event": "14",
-    "jsdom": "25"
+    "jsdom": "25",
+    "tailwindcss": "4",
+    "typescript": "5",
+    "vitest": "2"
   }
 }
