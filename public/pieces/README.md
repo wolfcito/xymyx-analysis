@@ -16,4 +16,4 @@
   - Crisp at 64–96px squares; align board size to integer multiples
 - Notes:
   - Keep filenames lowercase; use `classic`, `neo`, etc. to scope themes
-  - Placeholders `.gitkeep` are present; replace with actual assets
+  - Placeholder SVGs for the 12 pieces are provided in `svg/classic/`. Replace with production art when ready or export PNGs if preferred.
