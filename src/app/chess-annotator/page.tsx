@@ -3,16 +3,22 @@ import AnnotationLayer from '@/components/AnnotationLayer';
 import PieceTray from '@/components/PieceTray';
 import Toolbar from '@/components/Toolbar';
 import MoveList from '@/components/MoveList';
+import StateLoader from '@/components/StateLoader';
 
 export const metadata = {
   title: 'Chess Annotator',
 };
 
 function ChessAnnotatorPage() {
-  const metricsPanel = () => <aside aria-label="metrics" className="text-xs">metrics</aside>;
+  const metricsPanel = () => (
+    <aside aria-label="metrics" className="text-xs">
+      metrics
+    </aside>
+  );
 
   return (
     <main className="p-4 sm:p-6 grid gap-4 grid-cols-1 md:grid-cols-[1fr_minmax(240px,320px)]">
+      <StateLoader />
       <section aria-label="editor" className="space-y-3">
         <h1 className="text-xl font-semibold">Chess Annotator</h1>
         <Toolbar />

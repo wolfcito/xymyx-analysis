@@ -1,64 +1,113 @@
-import React from 'react';
-import type { Square } from '@/types';
-
-type Piece = 'wK' | 'wQ' | 'wR' | 'wB' | 'wN' | 'wP' | 'bK' | 'bQ' | 'bR' | 'bB' | 'bN' | 'bP';
+'use client';
+import React, { useState } from 'react';
+import type { Square, Piece } from '@/types';
+import { useChessStore } from '@/hooks/useChessStore';
 
 const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
 const ranks = [8, 7, 6, 5, 4, 3, 2, 1] as const;
 
 const pieceSrc = (p: Piece) => `/pieces/svg/classic/${p}.svg`;
 
-const initialPosition = (): Record<Square, Piece> => {
-  const pos: Partial<Record<Square, Piece>> = {};
-  const add = (file: string, rank: number, p: Piece) => {
-    pos[`${file}${rank}` as Square] = p;
-  };
-  // Black
-  ['a', 'h'].forEach((f) => add(f, 8, 'bR'));
-  ['b', 'g'].forEach((f) => add(f, 8, 'bN'));
-  ['c', 'f'].forEach((f) => add(f, 8, 'bB'));
-  add('d', 8, 'bQ');
-  add('e', 8, 'bK');
-  files.forEach((f) => add(f, 7, 'bP'));
-  // White
-  ['a', 'h'].forEach((f) => add(f, 1, 'wR'));
-  ['b', 'g'].forEach((f) => add(f, 1, 'wN'));
-  ['c', 'f'].forEach((f) => add(f, 1, 'wB'));
-  add('d', 1, 'wQ');
-  add('e', 1, 'wK');
-  files.forEach((f) => add(f, 2, 'wP'));
-  return pos as Record<Square, Piece>;
-};
-
 const Board: React.FC = () => {
-  const pos = initialPosition();
+  const { position, mode, orientation, makeMove, setPiece } = useChessStore();
+  const [draggedPiece, setDraggedPiece] = useState<{ piece: Piece; square: Square } | null>(null);
+  const [selectedSquare, setSelectedSquare] = useState<Square | null>(null);
+
+  const isFlipped = orientation === 'black';
+  const displayFiles = isFlipped ? [...files].reverse() : files;
+  const displayRanks = isFlipped ? [...ranks].reverse() : ranks;
+
   const isDark = (fileIdx: number, rankIdx: number) => (fileIdx + rankIdx) % 2 === 1;
+
+  const handleSquareClick = (square: Square) => {
+    if (mode === 'play') {
+      if (selectedSquare) {
+        if (selectedSquare !== square) {
+          makeMove(selectedSquare, square);
+        }
+        setSelectedSquare(null);
+      } else if (position[square]) {
+        setSelectedSquare(square);
+      }
+    }
+  };
+
+  const handleDragStart = (e: React.DragEvent, square: Square) => {
+    const piece = position[square];
+    if (!piece) return;
+
+    setDraggedPiece({ piece, square });
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e: React.DragEvent, targetSquare: Square) => {
+    e.preventDefault();
+
+    const draggedData = e.dataTransfer.getData('text/plain');
+
+    if (draggedData) {
+      if (mode === 'setup') {
+        setPiece(targetSquare, draggedData as Piece);
+      }
+    } else if (draggedPiece) {
+      if (mode === 'setup') {
+        if (draggedPiece.square !== targetSquare) {
+          setPiece(targetSquare, draggedPiece.piece);
+          setPiece(draggedPiece.square, null);
+        }
+      } else if (mode === 'play') {
+        makeMove(draggedPiece.square, targetSquare);
+      }
+    }
+
+    setDraggedPiece(null);
+  };
+
   const renderSquare = (fileIdx: number, rankIdx: number) => {
-    const square = `${files[fileIdx]}${ranks[rankIdx]}` as Square;
-    const piece = pos[square];
+    const file = displayFiles[fileIdx];
+    const rank = displayRanks[rankIdx];
+    const square = `${file}${rank}` as Square;
+    const piece = position[square];
     const bg = isDark(fileIdx, rankIdx) ? 'bg-[#769656]' : 'bg-[#EEEED2]';
-    const label = `${files[fileIdx]}${ranks[rankIdx]}`;
+    const isSelected = selectedSquare === square;
+
     return (
-      <div key={square} className={`relative ${bg}`} data-square={square}>
-        {piece ? (
-          // eslint-disable-next-line @next/next/no-img-element
+      <div
+        key={square}
+        className={`relative ${bg} ${isSelected ? 'ring-2 ring-blue-500' : ''} cursor-pointer`}
+        data-square={square}
+        onClick={() => handleSquareClick(square)}
+        onDragOver={handleDragOver}
+        onDrop={(e) => handleDrop(e, square)}
+      >
+        {piece && (
           <img
             src={pieceSrc(piece)}
             alt={piece}
-            className="absolute inset-0 w-full h-full object-contain p-1"
-            draggable={false}
+            className="absolute inset-0 w-full h-full object-contain p-1 pointer-events-none"
+            draggable={mode === 'setup' || mode === 'play'}
+            onDragStart={(e) => handleDragStart(e, square)}
           />
-        ) : null}
-        <span className="absolute bottom-1 right-1 text-[10px] text-black/60 select-none">
-          {label}
+        )}
+        <span className="absolute bottom-1 right-1 text-[10px] text-black/60 select-none pointer-events-none">
+          {square}
         </span>
       </div>
     );
   };
 
   return (
-    <div role="grid" aria-label="chess-board" className="w-full h-full grid grid-cols-8 grid-rows-8">
-      {ranks.map((_, rIdx) => files.map((_, fIdx) => renderSquare(fIdx, rIdx))) /* 8x8 */}
+    <div
+      role="grid"
+      aria-label="chess-board"
+      className="w-full h-full grid grid-cols-8 grid-rows-8"
+    >
+      {displayRanks.map((_, rIdx) => displayFiles.map((_, fIdx) => renderSquare(fIdx, rIdx)))}
     </div>
   );
 };
