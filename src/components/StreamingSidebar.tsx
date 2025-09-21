@@ -129,6 +129,16 @@ const StreamingSidebar: React.FC = () => {
 
   return (
     <div className="sidebar-frame h-full flex flex-col">
+      {/* Video Stream Section - Always Visible */}
+      <div className="p-4 border-b border-[var(--neon-green)]">
+        <h3 className="text-white font-semibold text-sm uppercase tracking-wide mb-2">
+          Live Stream
+        </h3>
+        <div className="bg-[var(--background)] border border-[var(--light-gray)] rounded h-32 flex items-center justify-center">
+          <span className="text-[var(--light-gray)] text-sm">video stream</span>
+        </div>
+      </div>
+
       {/* Tab Navigation */}
       <div className="flex border-b border-[var(--neon-green)]">
         {[
@@ -167,13 +177,6 @@ const StreamingSidebar: React.FC = () => {
             {/* Piece Tray Section */}
             <div className="p-4 border-t border-[var(--light-gray)]">
               <PieceTray />
-            </div>
-
-            {/* Video Stream Section */}
-            <div className="p-4 border-t border-[var(--light-gray)]">
-              <div className="bg-[var(--background)] border border-[var(--light-gray)] rounded h-32 flex items-center justify-center">
-                <span className="text-[var(--light-gray)] text-sm">video stream</span>
-              </div>
             </div>
           </div>
         )}
