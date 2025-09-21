@@ -75,7 +75,7 @@ const StreamPreview: React.FC = () => {
   } as const;
 
   return (
-    <div className="space-y-3 p-4 sm:p-5 min-h-[220px]" style={sectionBgStyle}>
+    <div className="space-y-3 p-2 sm:p-5 min-h-[220px]" style={sectionBgStyle}>
       <div className="flex items-center justify-between">
         <h3 className="text-white font-semibold text-sm uppercase tracking-wide">Live Stream</h3>
         <button
