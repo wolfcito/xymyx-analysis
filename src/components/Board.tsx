@@ -138,26 +138,6 @@ const Board: React.FC = () => {
       >
         {displayRanks.map((_, rIdx) => displayFiles.map((_, fIdx) => renderSquare(fIdx, rIdx)))}
       </div>
-
-      {/* Move Dropdown */}
-      <div className="absolute bottom-2 left-2 lg:bottom-4 lg:left-4 bg-[var(--dark-gray)] border border-[var(--neon-green)] rounded-lg p-2 lg:p-3 shadow-lg">
-        <div className="flex items-center space-x-2">
-          <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-[var(--neon-green)] flex items-center justify-center">
-            <span className="text-black font-bold text-sm lg:text-lg">N</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[var(--neon-green)] text-xs font-semibold">Move here</span>
-            <span className="text-white text-xs">as dropdown</span>
-          </div>
-          <svg
-            className="w-3 h-3 lg:w-4 lg:h-4 text-[var(--neon-green)]"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M7 10l5 5 5-5z" />
-          </svg>
-        </div>
-      </div>
     </div>
   );
 };
