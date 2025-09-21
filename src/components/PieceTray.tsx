@@ -5,7 +5,27 @@ import { useChessStore } from '@/hooks/useChessStore';
 
 const pieces: Piece[] = ['wK', 'wQ', 'wR', 'wB', 'wN', 'wP', 'bK', 'bQ', 'bR', 'bB', 'bN', 'bP'];
 
-const pieceSrc = (p: Piece) => `/pieces/svg/classic/${p}.svg`;
+const pieceLetter = (p: Piece) => {
+  const pieceMap: Record<Piece, string> = {
+    wK: 'K',
+    wQ: 'Q',
+    wR: 'R',
+    wB: 'B',
+    wN: 'N',
+    wP: 'P',
+    bK: 'K',
+    bQ: 'Q',
+    bR: 'R',
+    bB: 'B',
+    bN: 'N',
+    bP: 'P',
+  };
+  return pieceMap[p];
+};
+
+const pieceColor = (p: Piece) => {
+  return p.startsWith('w') ? 'text-white' : 'text-black';
+};
 
 const PieceTray: React.FC = () => {
   const { mode } = useChessStore();
@@ -27,29 +47,29 @@ const PieceTray: React.FC = () => {
   const renderPiece = (piece: Piece) => (
     <div
       key={piece}
-      className={`relative w-12 h-12 cursor-pointer rounded-md border-2 ${
+      className={`relative w-12 h-12 cursor-pointer rounded border-2 transition-all duration-200 ${
         selectedPiece === piece
-          ? 'border-blue-500 bg-blue-50'
-          : 'border-gray-200 bg-white hover:bg-gray-50'
+          ? 'border-[var(--neon-green)] bg-[var(--neon-green)]/20 neon-glow'
+          : 'border-[var(--light-gray)] bg-[var(--medium-gray)] hover:border-[var(--neon-green)] hover:bg-[var(--neon-green)]/10'
       }`}
       onClick={() => handlePieceClick(piece)}
       draggable
       onDragStart={(e) => handleDragStart(e, piece)}
     >
-      <img
-        src={pieceSrc(piece)}
-        alt={piece}
-        className="w-full h-full object-contain p-1 pointer-events-none"
-      />
+      <div
+        className={`w-full h-full flex items-center justify-center ${pieceColor(piece)} font-bold text-lg`}
+      >
+        {pieceLetter(piece)}
+      </div>
     </div>
   );
 
   return (
     <div aria-label="piece-tray" className="space-y-3">
-      <h3 className="text-sm font-medium text-gray-700">Piece Tray</h3>
+      <h3 className="text-sm font-semibold text-white uppercase tracking-wide">Piece Tray</h3>
       <div className="grid grid-cols-6 gap-2">{pieces.map(renderPiece)}</div>
       {selectedPiece && (
-        <div className="text-xs text-gray-600">
+        <div className="text-xs text-[var(--neon-green)] font-mono">
           Selected: {selectedPiece}. Click on the board to place this piece.
         </div>
       )}

@@ -1,4 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# XYMYX Analyzer
+
+Un analizador avanzado de ajedrez con interfaz de streaming overlay moderna. Permite configurar posiciones, anotar movimientos, analizar partidas y exportar estudios con un diseño futurista inspirado en overlays de streaming.
+
+## Características
+
+- 🎮 **Interfaz de Streaming Overlay**: Diseño moderno con tema neón verde y negro
+- ♟️ **Editor de Posiciones**: Configura cualquier posición del tablero
+- 📝 **Sistema de Anotaciones**: Añade flechas y resalta casillas
+- 🎯 **Análisis en Tiempo Real**: Evaluación de posiciones con motores de ajedrez
+- 💬 **Chat Simulado**: Interfaz de chat en vivo para análisis colaborativo
+- 📊 **Estadísticas en Vivo**: Seguimiento de movimientos y evaluaciones
+- 🎨 **Efectos Visuales**: Animaciones neón, brillos y transiciones suaves
+
+## Tecnologías
+
+- [Next.js](https://nextjs.org) - Framework de React
+- [TypeScript](https://www.typescriptlang.org/) - Tipado estático
+- [Tailwind CSS](https://tailwindcss.com/) - Estilos utilitarios
+- [Zustand](https://zustand-demo.pmnd.rs/) - Gestión de estado
 
 ## Getting Started
 

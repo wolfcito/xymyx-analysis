@@ -14,12 +14,12 @@ const MoveList: React.FC = () => {
 
   return (
     <div aria-label="move-list" className="space-y-3">
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         <button
           type="button"
           onClick={undoMove}
           disabled={!canUndo}
-          className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+          className="px-3 py-1 text-xs bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)] disabled:opacity-50 disabled:cursor-not-allowed rounded transition-all duration-200"
         >
           ← Undo
         </button>
@@ -27,7 +27,7 @@ const MoveList: React.FC = () => {
           type="button"
           onClick={redoMove}
           disabled={!canRedo}
-          className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+          className="px-3 py-1 text-xs bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)] disabled:opacity-50 disabled:cursor-not-allowed rounded transition-all duration-200"
         >
           Redo →
         </button>
@@ -35,7 +35,7 @@ const MoveList: React.FC = () => {
           type="button"
           onClick={() => goToMove(-1)}
           disabled={currentMoveIndex === -1}
-          className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+          className="px-3 py-1 text-xs bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)] disabled:opacity-50 disabled:cursor-not-allowed rounded transition-all duration-200"
         >
           ⏮ Start
         </button>
@@ -43,14 +43,14 @@ const MoveList: React.FC = () => {
           type="button"
           onClick={() => goToMove(moves.length - 1)}
           disabled={currentMoveIndex === moves.length - 1}
-          className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed rounded"
+          className="px-3 py-1 text-xs bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)] disabled:opacity-50 disabled:cursor-not-allowed rounded transition-all duration-200"
         >
           End ⏭
         </button>
       </div>
 
       {moves.length === 0 ? (
-        <div className="text-sm text-gray-500 italic">No moves yet</div>
+        <div className="text-sm text-[var(--light-gray)] italic">No moves yet</div>
       ) : (
         <ol className="space-y-1 max-h-64 overflow-y-auto">
           {moves.map((move, index) => {
@@ -62,16 +62,20 @@ const MoveList: React.FC = () => {
               <li
                 key={index}
                 onClick={() => handleMoveClick(index)}
-                className={`text-sm cursor-pointer px-2 py-1 rounded ${
-                  isCurrent ? 'bg-blue-100 text-blue-800' : 'hover:bg-gray-100'
+                className={`text-sm cursor-pointer px-2 py-1 rounded transition-all duration-200 ${
+                  isCurrent
+                    ? 'bg-[var(--neon-green)] text-black neon-glow'
+                    : 'hover:bg-[var(--medium-gray)] text-white'
                 }`}
               >
-                {isWhiteMove && <span className="text-gray-600 mr-1">{moveNumber}.</span>}
+                {isWhiteMove && (
+                  <span className="text-[var(--light-gray)] mr-1">{moveNumber}.</span>
+                )}
                 <span className="font-mono">
                   {move.from}
                   {move.to}
                 </span>
-                {move.captured && <span className="text-red-600 ml-1">x{move.captured}</span>}
+                {move.captured && <span className="text-red-400 ml-1">x{move.captured}</span>}
               </li>
             );
           })}

@@ -2,13 +2,14 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'xymyx-analysis',
+  title: 'XYMYX Analyzer - Chess Analysis with Streaming Overlay',
   description:
-    'Editor ligero para configurar posiciones, anotar flechas y casillas, y exportar estudios.',
+    'Analizador avanzado de ajedrez con interfaz de streaming overlay moderna. Configura posiciones, anota movimientos, analiza partidas y exporta estudios con diseño futurista.',
   metadataBase: new URL('http://localhost:3000'),
   openGraph: {
-    title: 'xymyx-analysis',
-    description: 'Anota ideas en el tablero y comparte.',
+    title: 'XYMYX Analyzer - Chess Analysis with Streaming Overlay',
+    description:
+      'Analiza posiciones de ajedrez con interfaz de streaming overlay moderna y efectos neón.',
     type: 'website',
     url: '/',
   },

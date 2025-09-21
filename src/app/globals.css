@@ -1,26 +1,165 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --neon-green: #00ff41;
+  --neon-green-dark: #00cc33;
+  --accent-blue: #00bfff;
+  --dark-gray: #1a1a1a;
+  --medium-gray: #2a2a2a;
+  --light-gray: #404040;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-neon-green: var(--neon-green);
+  --color-neon-green-dark: var(--neon-green-dark);
+  --color-accent-blue: var(--accent-blue);
+  --color-dark-gray: var(--dark-gray);
+  --color-medium-gray: var(--medium-gray);
+  --color-light-gray: var(--light-gray);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Neon glow effects */
+.neon-glow {
+  box-shadow:
+    0 0 5px var(--neon-green),
+    0 0 10px var(--neon-green),
+    0 0 15px var(--neon-green);
+}
+
+.neon-border {
+  border: 2px solid var(--neon-green);
+  box-shadow: 0 0 10px var(--neon-green);
+}
+
+.neon-text {
+  color: var(--neon-green);
+  text-shadow:
+    0 0 5px var(--neon-green),
+    0 0 10px var(--neon-green);
+}
+
+/* Geometric shapes background */
+.geometric-bg {
+  background-image:
+    linear-gradient(45deg, transparent 25%, rgba(0, 255, 65, 0.1) 25%),
+    linear-gradient(-45deg, transparent 25%, rgba(0, 255, 65, 0.1) 25%),
+    linear-gradient(45deg, rgba(0, 255, 65, 0.1) 75%, transparent 75%),
+    linear-gradient(-45deg, rgba(0, 255, 65, 0.1) 75%, transparent 75%);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0px;
+}
+
+/* Streaming overlay styles */
+.streaming-overlay {
+  background: linear-gradient(135deg, var(--background) 0%, var(--dark-gray) 100%);
+  min-height: 100vh;
+}
+
+/* Header styles */
+.streaming-header {
+  background: var(--dark-gray);
+  border-bottom: 2px solid var(--neon-green);
+  box-shadow: 0 2px 20px rgba(0, 255, 65, 0.3);
+}
+
+/* Main content area */
+.main-content-frame {
+  border: 3px solid var(--neon-green);
+  background: var(--dark-gray);
+  box-shadow:
+    inset 0 0 20px rgba(0, 255, 65, 0.1),
+    0 0 30px rgba(0, 255, 65, 0.2);
+}
+
+/* Sidebar styles */
+.sidebar-frame {
+  border: 2px solid var(--neon-green);
+  background: var(--dark-gray);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+
+/* Footer styles */
+.streaming-footer {
+  background: var(--dark-gray);
+  border-top: 2px solid var(--neon-green);
+  box-shadow: 0 -2px 20px rgba(0, 255, 65, 0.3);
+}
+
+/* Chat-like styles */
+.chat-window {
+  background: var(--background);
+  border: 1px solid var(--light-gray);
+  color: var(--foreground);
+}
+
+.chat-message {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--medium-gray);
+  font-size: 14px;
+}
+
+/* Stats panels */
+.stats-panel {
+  background: var(--medium-gray);
+  border: 1px solid var(--neon-green);
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+/* Animations */
+@keyframes neon-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 5px var(--neon-green),
+      0 0 10px var(--neon-green),
+      0 0 15px var(--neon-green);
+  }
+
+  50% {
+    box-shadow:
+      0 0 10px var(--neon-green),
+      0 0 20px var(--neon-green),
+      0 0 30px var(--neon-green);
+  }
+}
+
+.neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green-dark);
 }

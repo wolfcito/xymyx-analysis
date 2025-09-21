@@ -17,15 +17,18 @@ const Toolbar: React.FC = () => {
     exportJson,
     shareUrl,
   } = useChessStore();
+  const [isOpen, setIsOpen] = useState(false);
   const [fenInput, setFenInput] = useState('');
   const [showFenInput, setShowFenInput] = useState(false);
 
   const handleModeChange = (newMode: Mode) => {
     setMode(newMode);
+    setIsOpen(false);
   };
 
   const handleFlip = () => {
     setOrientation(orientation === 'white' ? 'black' : 'white');
+    setIsOpen(false);
   };
 
   const handleFenImport = () => {
@@ -33,6 +36,7 @@ const Toolbar: React.FC = () => {
       importFen(fenInput.trim());
       setFenInput('');
       setShowFenInput(false);
+      setIsOpen(false);
     }
   };
 
@@ -46,6 +50,7 @@ const Toolbar: React.FC = () => {
         prompt('Copy this URL to share:', url);
       }
     }
+    setIsOpen(false);
   };
 
   const handleExport = (type: 'fen' | 'pgn' | 'json') => {
@@ -74,128 +79,215 @@ const Toolbar: React.FC = () => {
     a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
+    setIsOpen(false);
   };
 
-  const modeButton = (targetMode: Mode, label: string) => (
-    <button
-      type="button"
-      onClick={() => handleModeChange(targetMode)}
-      className={`px-3 py-2 text-sm font-medium rounded-md ${
-        mode === targetMode
-          ? 'bg-blue-600 text-white'
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-      }`}
-    >
-      {label}
-    </button>
-  );
+  const getModeIcon = (currentMode: Mode) => {
+    switch (currentMode) {
+      case 'setup':
+        return '⚙️';
+      case 'annotate':
+        return '✏️';
+      case 'play':
+        return '▶️';
+      default:
+        return '⚙️';
+    }
+  };
+
+  const getModeLabel = (currentMode: Mode) => {
+    switch (currentMode) {
+      case 'setup':
+        return 'Setup';
+      case 'annotate':
+        return 'Annotate';
+      case 'play':
+        return 'Play';
+      default:
+        return 'Setup';
+    }
+  };
 
   return (
-    <div role="toolbar" aria-label="editor-toolbar" className="space-y-3">
-      <div className="flex gap-2 items-center flex-wrap">
-        {modeButton('setup', 'Setup')}
-        {modeButton('annotate', 'Annotate')}
-        {modeButton('play', 'Play')}
-
-        <div className="w-px h-6 bg-gray-300 mx-2" />
-
-        <button
-          type="button"
-          onClick={handleFlip}
-          className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-md"
+    <div className="relative">
+      {/* Main Dropdown Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center space-x-2 px-4 py-2 text-sm font-semibold rounded border transition-all duration-200 ${
+          mode === 'play'
+            ? 'bg-[var(--neon-green)] text-black border-[var(--neon-green)] neon-glow'
+            : 'bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)]'
+        }`}
+      >
+        <span>{getModeIcon(mode)}</span>
+        <span>{getModeLabel(mode)}</span>
+        <svg
+          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          fill="currentColor"
+          viewBox="0 0 24 24"
         >
-          Flip ({orientation})
-        </button>
+          <path d="M7 10l5 5 5-5z" />
+        </svg>
+      </button>
 
-        {mode === 'setup' && (
-          <>
+      {/* Dropdown Menu */}
+      {isOpen && (
+        <div className="absolute top-full left-0 mt-2 w-64 bg-[var(--dark-gray)] border border-[var(--neon-green)] rounded-lg shadow-lg z-50 neon-glow">
+          <div className="p-2 space-y-1">
+            {/* Mode Selection */}
+            <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] uppercase tracking-wide border-b border-[var(--light-gray)]">
+              Mode
+            </div>
+
+            {(['setup', 'annotate', 'play'] as Mode[]).map((modeOption) => (
+              <button
+                key={modeOption}
+                onClick={() => handleModeChange(modeOption)}
+                className={`w-full flex items-center space-x-3 px-3 py-2 text-sm rounded transition-all duration-200 ${
+                  mode === modeOption
+                    ? 'bg-[var(--neon-green)] text-black'
+                    : 'text-white hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)]'
+                }`}
+              >
+                <span>{getModeIcon(modeOption)}</span>
+                <span>{getModeLabel(modeOption)}</span>
+                {mode === modeOption && <span className="ml-auto text-xs">✓</span>}
+              </button>
+            ))}
+
+            {/* Separator */}
+            <div className="h-px bg-[var(--light-gray)] my-2"></div>
+
+            {/* Board Controls */}
+            <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] uppercase tracking-wide border-b border-[var(--light-gray)]">
+              Board
+            </div>
+
             <button
-              type="button"
-              onClick={clearBoard}
-              className="px-3 py-2 text-sm bg-red-100 hover:bg-red-200 text-red-700 rounded-md"
+              onClick={handleFlip}
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)] transition-all duration-200"
             >
-              Clear
+              <span>🔄</span>
+              <span>Flip ({orientation})</span>
             </button>
+
+            {mode === 'setup' && (
+              <>
+                <button
+                  onClick={() => {
+                    clearBoard();
+                    setIsOpen(false);
+                  }}
+                  className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-red-600 hover:text-white transition-all duration-200"
+                >
+                  <span>🗑️</span>
+                  <span>Clear Board</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setInitialPosition();
+                    setIsOpen(false);
+                  }}
+                  className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--neon-green)] hover:text-black transition-all duration-200"
+                >
+                  <span>🏁</span>
+                  <span>Initial Position</span>
+                </button>
+              </>
+            )}
+
+            {/* Separator */}
+            <div className="h-px bg-[var(--light-gray)] my-2"></div>
+
+            {/* Import/Export */}
+            <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] uppercase tracking-wide border-b border-[var(--light-gray)]">
+              Data
+            </div>
+
             <button
-              type="button"
-              onClick={setInitialPosition}
-              className="px-3 py-2 text-sm bg-green-100 hover:bg-green-200 text-green-700 rounded-md"
+              onClick={() => setShowFenInput(!showFenInput)}
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)] transition-all duration-200"
             >
-              Initial
+              <span>📥</span>
+              <span>Import FEN</span>
             </button>
-          </>
-        )}
-      </div>
 
-      <div className="flex gap-2 items-center flex-wrap">
-        <button
-          type="button"
-          onClick={() => setShowFenInput(!showFenInput)}
-          className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-md"
-        >
-          Import FEN
-        </button>
+            <button
+              onClick={() => handleExport('fen')}
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)] transition-all duration-200"
+            >
+              <span>📤</span>
+              <span>Export FEN</span>
+            </button>
 
-        <button
-          type="button"
-          onClick={() => handleExport('fen')}
-          className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-md"
-        >
-          Export FEN
-        </button>
+            <button
+              onClick={() => handleExport('pgn')}
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)] transition-all duration-200"
+            >
+              <span>📤</span>
+              <span>Export PGN</span>
+            </button>
 
-        <button
-          type="button"
-          onClick={() => handleExport('pgn')}
-          className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-md"
-        >
-          Export PGN
-        </button>
+            <button
+              onClick={() => handleExport('json')}
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)] transition-all duration-200"
+            >
+              <span>📤</span>
+              <span>Export JSON</span>
+            </button>
 
-        <button
-          type="button"
-          onClick={() => handleExport('json')}
-          className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-md"
-        >
-          Export JSON
-        </button>
+            {/* Separator */}
+            <div className="h-px bg-[var(--light-gray)] my-2"></div>
 
-        <div className="w-px h-6 bg-gray-300 mx-2" />
-
-        <button
-          type="button"
-          onClick={handleShare}
-          className="px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-700 rounded-md"
-        >
-          Share URL
-        </button>
-      </div>
-
-      {showFenInput && (
-        <div className="flex gap-2 items-center">
-          <input
-            type="text"
-            value={fenInput}
-            onChange={(e) => setFenInput(e.target.value)}
-            placeholder="Paste FEN string here..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm"
-          />
-          <button
-            type="button"
-            onClick={handleFenImport}
-            className="px-3 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
-          >
-            Import
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowFenInput(false)}
-            className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-md"
-          >
-            Cancel
-          </button>
+            {/* Share */}
+            <button
+              onClick={handleShare}
+              className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--accent-blue)] hover:text-white transition-all duration-200"
+            >
+              <span>🔗</span>
+              <span>Share URL</span>
+            </button>
+          </div>
         </div>
       )}
+
+      {/* FEN Input Modal */}
+      {showFenInput && (
+        <div className="absolute top-full left-0 mt-2 w-80 bg-[var(--dark-gray)] border border-[var(--neon-green)] rounded-lg shadow-lg z-50 neon-glow p-4">
+          <div className="space-y-3">
+            <div className="text-sm font-semibold text-[var(--neon-green)]">
+              Import FEN Position
+            </div>
+            <input
+              type="text"
+              value={fenInput}
+              onChange={(e) => setFenInput(e.target.value)}
+              placeholder="Paste FEN string here..."
+              className="w-full px-3 py-2 bg-[var(--background)] border border-[var(--light-gray)] rounded text-sm text-white placeholder-[var(--light-gray)] focus:outline-none focus:border-[var(--neon-green)]"
+            />
+            <div className="flex space-x-2">
+              <button
+                onClick={handleFenImport}
+                className="flex-1 px-3 py-2 text-sm bg-[var(--neon-green)] text-black border border-[var(--neon-green)] rounded hover:bg-[var(--neon-green-dark)] transition-all duration-200"
+              >
+                Import
+              </button>
+              <button
+                onClick={() => {
+                  setShowFenInput(false);
+                  setFenInput('');
+                }}
+                className="flex-1 px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] hover:text-[var(--neon-green)] transition-all duration-200"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Backdrop to close dropdown */}
+      {isOpen && <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />}
     </div>
   );
 };
