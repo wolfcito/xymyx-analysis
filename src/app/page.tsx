@@ -25,7 +25,7 @@ export default function HomePage() {
             {/* Chess Board */}
             <div className="flex-1 flex items-center justify-center min-h-0 p-6 board-container">
               <div className="relative w-full h-full flex items-center justify-center">
-                <div className="relative aspect-square w-full h-full max-w-[min(100%,60vh)] max-h-[min(100%,60vh)]">
+                <div className="relative aspect-square w-full h-full max-w-[min(100%,60vh)] max-h-[min(100%,60vh)] ml-3">
                   <Board />
                   <div className="absolute inset-0 pointer-events-none">
                     <AnnotationLayer />
