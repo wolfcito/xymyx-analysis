@@ -70,14 +70,14 @@ const StreamPreview: React.FC = () => {
   const sectionBgStyle = {
     backgroundRepeat: 'no-repeat',
     backgroundImage: `url(${bgUrl}), url(${fallbackBgUrl})`,
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundPosition: 'center',
   } as const;
 
   return (
-    <div className="space-y-3 rounded-md p-2" style={sectionBgStyle}>
+    <div className="space-y-3 p-4 sm:p-5 min-h-[220px]" style={sectionBgStyle}>
       <div className="flex items-center justify-between">
-        <h3 className="text-white text-sm tracking-wide">Live Stream</h3>
+        <h3 className="text-white font-semibold text-sm uppercase tracking-wide">Live Stream</h3>
         <button
           onClick={handleToggle}
           className={`px-3 py-1.5 text-xs font-semibold rounded border transition-colors ${
@@ -86,14 +86,11 @@ const StreamPreview: React.FC = () => {
               : 'bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)]'
           }`}
         >
-          {isOn ? 'Pause' : 'Play'}
+          {isOn ? 'Apagar cámara' : 'Encender cámara'}
         </button>
       </div>
 
-      <div
-        className="relative h-32 sm:h-36 md:h-40 rounded overflow-hidden bg-black/20"
-        aria-label="stream-preview"
-      >
+      <div className="relative h-32 sm:h-36 md:h-40 overflow-hidden" aria-label="stream-preview">
         {isOn && stream ? (
           <video
             ref={videoRef}
