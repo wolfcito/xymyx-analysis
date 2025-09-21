@@ -1,0 +1,47 @@
+XYMYX Analysis - Repository-Only License
+
+Copyright (c) 2024 Good Wolf Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, and distribute the Software, subject to
+the following conditions:
+
+1. MODIFICATIONS RESTRICTION: All modifications, improvements, and derivative
+   works of this Software may ONLY be made within this repository and its
+   official forks or branches. No modifications may be distributed outside
+   of this repository ecosystem.
+
+2. DISTRIBUTION RESTRICTION: The Software may be distributed only in its
+   original, unmodified form or as part of this repository. Any distribution
+   of modified versions must be done exclusively through this repository
+   or its official branches/forks.
+
+3. ATTRIBUTION: Any use of this Software must include proper attribution
+   to Good Wolf Labs and this repository.
+
+4. COMMERCIAL USE: Commercial use of this Software is permitted only when
+   used in its original form or when modifications are contributed back
+   to this repository.
+
+5. NO SEPARATE DISTRIBUTION: You may not create separate distributions,
+   packages, or releases of modified versions of this Software outside
+   of this repository.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+This license ensures that:
+- All improvements and modifications stay within this repository
+- The codebase remains centralized and maintainable
+- Contributors can still freely modify and improve the code
+- The project maintains its integrity and development focus
+- Commercial use is allowed when contributing back to the repository
