@@ -4,6 +4,7 @@ import MoveList from './MoveList';
 import PieceTray from './PieceTray';
 import { useChessStore } from '@/hooks/useChessStore';
 import type { Mode } from '@/types';
+import StreamPreview from './StreamPreview';
 
 const StreamingSidebar: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'moves' | 'chat' | 'analysis'>('moves');
@@ -129,14 +130,9 @@ const StreamingSidebar: React.FC = () => {
 
   return (
     <div className="sidebar-frame h-full flex flex-col">
-      {/* Video Stream Section - Always Visible */}
+      {/* Video Stream Section */}
       <div className="p-4 border-b border-[var(--neon-green)]">
-        <h3 className="text-white font-semibold text-sm uppercase tracking-wide mb-2">
-          Live Stream
-        </h3>
-        <div className="bg-[var(--background)] border border-[var(--light-gray)] rounded h-32 flex items-center justify-center">
-          <span className="text-[var(--light-gray)] text-sm">video stream</span>
-        </div>
+        <StreamPreview />
       </div>
 
       {/* Tab Navigation */}
