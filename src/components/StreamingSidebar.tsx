@@ -5,6 +5,7 @@ import PieceTray from './PieceTray';
 import { useChessStore } from '@/hooks/useChessStore';
 import type { Mode } from '@/types';
 import StreamPreview from './StreamPreview';
+import AnnotatePanel from './AnnotatePanel';
 
 const StreamingSidebar: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'moves' | 'chat' | 'analysis'>('moves');
@@ -168,10 +169,17 @@ const StreamingSidebar: React.FC = () => {
               <MoveList />
             </div>
 
-            {/* Piece Tray Section */}
-            <div className="p-4 border-t border-[var(--light-gray)]">
-              <PieceTray />
-            </div>
+            {/* Bottom contextual section */}
+            {mode === 'setup' && (
+              <div className="p-4 border-t border-[var(--light-gray)]">
+                <PieceTray />
+              </div>
+            )}
+            {mode === 'annotate' && (
+              <div className="p-4 border-t border-[var(--light-gray)]">
+                <AnnotatePanel />
+              </div>
+            )}
           </div>
         )}
 

@@ -21,6 +21,7 @@ const AnnotationLayer: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(PIECE_COLORS.green);
   const [isDrawing, setIsDrawing] = useState(false);
   const [startSquare, setStartSquare] = useState<Square | null>(null);
+  const [dragPoint, setDragPoint] = useState<{ x: number; y: number } | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
   const isFlipped = orientation === 'black';
@@ -56,6 +57,15 @@ const AnnotationLayer: React.FC = () => {
     };
   };
 
+  const getRelativePoint = (clientX: number, clientY: number): { x: number; y: number } | null => {
+    if (!svgRef.current) return null;
+    const rect = svgRef.current.getBoundingClientRect();
+    const x = ((clientX - rect.left) / rect.width) * 100;
+    const y = ((clientY - rect.top) / rect.height) * 100;
+    if (x < 0 || x > 100 || y < 0 || y > 100) return null;
+    return { x, y };
+  };
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (mode !== 'annotate') return;
 
@@ -72,6 +82,8 @@ const AnnotationLayer: React.FC = () => {
     } else {
       setIsDrawing(true);
       setStartSquare(square);
+      const p = getRelativePoint(e.clientX, e.clientY);
+      setDragPoint(p);
     }
   };
 
@@ -89,13 +101,20 @@ const AnnotationLayer: React.FC = () => {
           to: endSquare,
           color: selectedColor,
           style: 'solid',
-          width: 3,
+          width: 2,
         });
       }
     }
 
     setIsDrawing(false);
     setStartSquare(null);
+    setDragPoint(null);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDrawing) return;
+    const p = getRelativePoint(e.clientX, e.clientY);
+    if (p) setDragPoint(p);
   };
 
   const renderArrow = (arrow: Arrow) => {
@@ -108,10 +127,12 @@ const AnnotationLayer: React.FC = () => {
     const unitX = dx / length;
     const unitY = dy / length;
 
-    const arrowHeadSize = 1.5;
+    const arrowHeadSize = 1.8;
+    const circleRadius = 1.6; // keep circle + line perfectly connected
+    const stroke = 1; // standard annotate stroke
     const arrowStart = {
-      x: start.x + unitX * 2,
-      y: start.y + unitY * 2,
+      x: start.x + unitX * circleRadius,
+      y: start.y + unitY * circleRadius,
     };
     const arrowEnd = {
       x: end.x - unitX * 2,
@@ -129,13 +150,16 @@ const AnnotationLayer: React.FC = () => {
 
     return (
       <g key={`${arrow.from}-${arrow.to}`}>
+        {/* starting circle */}
+        <circle cx={start.x} cy={start.y} r={circleRadius} fill={arrow.color} />
         <line
           x1={arrowStart.x}
           y1={arrowStart.y}
           x2={arrowEnd.x}
           y2={arrowEnd.y}
           stroke={arrow.color}
-          strokeWidth={arrow.width}
+          strokeWidth={stroke}
+          strokeLinecap="round"
           strokeDasharray={arrow.style === 'dotted' ? '2,2' : 'none'}
         />
         <polygon
@@ -181,7 +205,7 @@ const AnnotationLayer: React.FC = () => {
   return (
     <div className="relative w-full h-full">
       {mode === 'annotate' && (
-        <div className="absolute top-2 left-2 z-10 flex gap-1 bg-white/90 p-2 rounded shadow">
+        <div className="fixed top-20 right-5 z-50 flex gap-1 bg-black/70 p-2 rounded border border-[var(--neon-green)] shadow-lg">
           {Object.entries(PIECE_COLORS).map(([name, color]) => colorButton(color, name))}
         </div>
       )}
@@ -193,9 +217,52 @@ const AnnotationLayer: React.FC = () => {
         viewBox="0 0 100 100"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
       >
         {highlights.map(renderHighlight)}
         {arrows.map(renderArrow)}
+        {isDrawing &&
+          startSquare &&
+          dragPoint &&
+          (() => {
+            const start = getSquareCenter(startSquare);
+            const end = dragPoint;
+            const dx = end.x - start.x;
+            const dy = end.y - start.y;
+            const length = Math.sqrt(dx * dx + dy * dy) || 1;
+            const ux = dx / length;
+            const uy = dy / length;
+            const head = 1.8;
+            const circleRadius = 1.6;
+            const e = { x: end.x - ux * 2, y: end.y - uy * 2 };
+            const left = {
+              x: e.x - ux * head + uy * head * 0.5,
+              y: e.y - uy * head - ux * head * 0.5,
+            };
+            const right = {
+              x: e.x - ux * head - uy * head * 0.5,
+              y: e.y - uy * head + ux * head * 0.5,
+            };
+            return (
+              <g>
+                <circle cx={start.x} cy={start.y} r={circleRadius} fill={selectedColor} />
+                <line
+                  x1={start.x + ux * circleRadius}
+                  y1={start.y + uy * circleRadius}
+                  x2={e.x}
+                  y2={e.y}
+                  stroke={selectedColor}
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                />
+                <polygon
+                  points={`${e.x},${e.y} ${left.x},${left.y} ${right.x},${right.y}`}
+                  fill={selectedColor}
+                  opacity={0.9}
+                />
+              </g>
+            );
+          })()}
       </svg>
 
       {mode === 'annotate' && (
