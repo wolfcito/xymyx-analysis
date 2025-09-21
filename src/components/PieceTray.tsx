@@ -66,7 +66,7 @@ const PieceTray: React.FC = () => {
   const renderPiece = (piece: Piece) => (
     <div
       key={piece}
-      className={`relative w-12 h-12 cursor-pointer rounded border-2 transition-all duration-200 ${
+      className={`relative w-13 h-13 cursor-pointer rounded border-2 transition-all duration-200 ${
         selectedPiece === piece
           ? 'border-[var(--neon-green)] bg-[var(--neon-green)]/20 neon-glow'
           : 'border-[var(--light-gray)] bg-[var(--medium-gray)] hover:border-[var(--neon-green)] hover:bg-[var(--neon-green)]/10'
@@ -79,8 +79,8 @@ const PieceTray: React.FC = () => {
         <Image
           src={pieceSrc(piece)}
           alt={pieceLetter(piece)}
-          width={48}
-          height={48}
+          width={52}
+          height={52}
           className="w-full h-full object-contain"
           draggable={false}
         />

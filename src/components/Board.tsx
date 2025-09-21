@@ -139,9 +139,9 @@ const Board: React.FC = () => {
             <Image
               src={pieceSrc(piece)}
               alt={pieceLetter(piece)}
-              width={32}
-              height={32}
-              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 object-contain drop-shadow-lg"
+              width={40}
+              height={40}
+              className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 object-contain drop-shadow-lg"
               draggable={false}
             />
           </div>
