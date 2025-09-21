@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import MoveList from './MoveList';
+import PieceTray from './PieceTray';
 import { useChessStore } from '@/hooks/useChessStore';
 import type { Mode } from '@/types';
 
@@ -155,6 +156,11 @@ const StreamingSidebar: React.FC = () => {
             </div>
             <div className="flex-1 overflow-y-auto">
               <MoveList />
+            </div>
+
+            {/* Piece Tray Section */}
+            <div className="p-4 border-t border-[var(--light-gray)]">
+              <PieceTray />
             </div>
 
             {/* Video Stream Section */}

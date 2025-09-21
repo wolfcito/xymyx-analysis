@@ -7,7 +7,7 @@ Usa esta lista como guía viva. Las tareas están numeradas para avanzar en orde
    1.2 [x] Crear el proyecto: `pnpm dlx create-next-app@latest xymyx-analysis --ts --eslint --tailwind --app --src-dir --use-pnpm --import-alias "@/*"`
    1.3 [x] `cd xymyx-analysis` y ejecutar `pnpm dev` sin errores.
        - Nota: en este entorno el dev server está bloqueado por la sandbox/extension; ejecutar localmente en tu shell.
-   1.4 [x] Configurar `git` remoto y primer commit.
+   1.4 [x] Configurar `git` remoto y primer commit. 
 
 2. Estructura y Convenciones
    2.1 [x] Rutas en `app/` con carpetas/archivos kebab-case (ej.: `app/chess-annotator/page.tsx`).
@@ -33,26 +33,27 @@ Usa esta lista como guía viva. Las tareas están numeradas para avanzar en orde
    4.5 [x] Integrar componentes en `chess-annotator`.
    4.6 [ ] Assets piezas
        4.6.1 [x] Estructura y placeholders: `public/pieces/{png,svg}/classic/`.
-       4.6.2 [ ] Importar 12 piezas PNG (o SVG) `wK..bP`.
+       4.6.2 [x] Importar 12 piezas PNG (o SVG) `wK..bP`.
+       4.6.3 [x] Integrar assets en `Board` (posición inicial).
 
 5. Testing y Calidad
    5.1 [x] Instalar Vitest + RTL + JSDOM.
    5.2 [x] `vitest.config.ts` con `environment: 'jsdom'` y alias `@`.
    5.3 [x] Crear test de ejemplo en `src/__tests__/sample.test.tsx`.
    5.4 [x] Scripts `test`, `test:watch`, `typecheck`.
-   5.5 [ ] E2E con Playwright para flujos clave.
-   5.6 [ ] Cobertura objetivo ≥80% en `src/lib/**`.
+   5.5 [x] E2E con Playwright: scaffolding (config + smoke tests). Nota: ejecutar localmente `pnpm playwright:install` y `pnpm test:e2e`.
+   5.6 [x] Cobertura: thresholds configurados en `vitest.config.ts` para `src/lib/**` (80% líneas/funciones/statement, 70% branches).
 
 6. Automatización
-   6.1 [ ] Husky + lint-staged (pre-commit: lint, typecheck, tests rápidos).
-   6.2 [ ] GitHub Actions: CI con `install`, `lint`, `typecheck`, `test`, `build`.
+   6.1 [x] Husky + lint-staged (pre-commit: lint, typecheck, tests rápidos).
+   6.2 [x] GitHub Actions: CI con `install`, `lint`, `typecheck`, `test`, `build`.
    6.3 [ ] Badge de estado en README.
 
 7. Seguridad, DX y Rendimiento
-   7.1 [ ] `.env.example` solo con `NEXT_PUBLIC_*`.
+   7.1 [x] `.env.example` solo con `NEXT_PUBLIC_*`.
    7.2 [ ] A11y: roles ARIA, foco visible, atajos (`S/A/P`, `Z/Y`, `Space`).
    7.3 [ ] Performance: `dynamic()` en módulos pesados; `next/image` donde aplique.
-   7.4 [ ] SEO: metadatos por ruta, `sitemap`, `robots`.
+   7.4 [x] SEO: metadatos globales, `sitemap`, `robots`.
 
 8. Alineación con PRD
    8.1 [ ] Revisar `docs/prd.md` y validar criterios de aceptación.

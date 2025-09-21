@@ -1,6 +1,5 @@
 import Board from '@/components/Board';
 import AnnotationLayer from '@/components/AnnotationLayer';
-import PieceTray from '@/components/PieceTray';
 import StreamingHeader from '@/components/StreamingHeader';
 import StreamingSidebar from '@/components/StreamingSidebar';
 import StateLoader from '@/components/StateLoader';
@@ -22,9 +21,9 @@ export default function HomePage() {
       <div className="flex-1 flex overflow-hidden">
         {/* Left Side - Main Chess Board */}
         <div className="flex-1 flex flex-col">
-          <div className="main-content-frame flex-1 flex flex-col">
+          <div className="main-content-frame flex-1 flex flex-col board-background">
             {/* Chess Board */}
-            <div className="flex-1 flex items-center justify-center min-h-0 p-4">
+            <div className="flex-1 flex items-center justify-center min-h-0 p-4 board-container">
               <div className="relative w-full h-full flex items-center justify-center">
                 <div className="relative aspect-square w-full h-full max-w-[min(100%,80vh)] max-h-[min(100%,80vh)]">
                   <Board />
@@ -33,11 +32,6 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Piece Tray */}
-            <div className="mt-4 flex-shrink-0">
-              <PieceTray />
             </div>
           </div>
         </div>

@@ -88,6 +88,31 @@ body {
     0 0 30px rgba(0, 255, 65, 0.2);
 }
 
+/* Board Background */
+.board-background {
+  background-image: url('/board.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.board-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.board-container {
+  position: relative;
+  z-index: 2;
+}
+
 /* Sidebar styles */
 .sidebar-frame {
   border: 2px solid var(--neon-green);
