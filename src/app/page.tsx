@@ -21,14 +21,16 @@ export default function HomePage() {
       {/* Main Content Area */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Side - Main Chess Board */}
-        <div className="flex-1 flex flex-col p-4 lg:p-6">
-          <div className="main-content-frame flex-1 flex flex-col p-4 lg:p-6">
+        <div className="flex-1 flex flex-col">
+          <div className="main-content-frame flex-1 flex flex-col">
             {/* Chess Board */}
-            <div className="flex-1 flex items-center justify-center min-h-0">
-              <div className="relative w-full h-full max-w-4xl max-h-4xl aspect-square">
-                <Board />
-                <div className="absolute inset-0 pointer-events-none">
-                  <AnnotationLayer />
+            <div className="flex-1 flex items-center justify-center min-h-0 p-4">
+              <div className="relative w-full h-full flex items-center justify-center">
+                <div className="relative aspect-square w-full h-full max-w-[min(100%,80vh)] max-h-[min(100%,80vh)]">
+                  <Board />
+                  <div className="absolute inset-0 pointer-events-none">
+                    <AnnotationLayer />
+                  </div>
                 </div>
               </div>
             </div>
@@ -41,7 +43,7 @@ export default function HomePage() {
         </div>
 
         {/* Right Side - Sidebar */}
-        <div className="w-72 lg:w-80 flex-shrink-0 p-4 lg:p-6">
+        <div className="w-72 lg:w-80 flex-shrink-0">
           <StreamingSidebar />
         </div>
       </div>

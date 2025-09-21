@@ -130,11 +130,11 @@ const Board: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full min-h-[400px] max-h-[80vh]">
+    <div className="relative w-full h-full">
       <div
         role="grid"
         aria-label="chess-board"
-        className="w-full h-full grid grid-cols-8 grid-rows-8 min-h-[400px]"
+        className="w-full h-full aspect-square grid grid-cols-8 grid-rows-8"
       >
         {displayRanks.map((_, rIdx) => displayFiles.map((_, fIdx) => renderSquare(fIdx, rIdx)))}
       </div>
