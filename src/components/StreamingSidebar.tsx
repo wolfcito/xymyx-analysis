@@ -131,7 +131,7 @@ const StreamingSidebar: React.FC = () => {
   return (
     <div className="sidebar-frame h-full flex flex-col">
       {/* Video Stream Section */}
-      <div className="p-4 border-b border-[var(--neon-green)]">
+      <div className="m-2">
         <StreamPreview />
       </div>
 
