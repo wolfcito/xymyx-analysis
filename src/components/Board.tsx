@@ -102,12 +102,14 @@ const Board: React.FC = () => {
     return (
       <div
         key={square}
-        className={`relative ${bg} ${squareOpacity} ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} cursor-pointer border border-[var(--light-gray)] hover:border-[var(--neon-green)] transition-all duration-200`}
+        className={`relative ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} cursor-pointer border border-[var(--light-gray)] hover:border-[var(--neon-green)] transition-all duration-200`}
         data-square={square}
         onClick={() => handleSquareClick(square)}
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, square)}
       >
+        {/* Background square with transparency */}
+        <div className={`absolute inset-0 ${bg} ${squareOpacity}`}></div>
         {piece && (
           <div
             className={`absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none ${
