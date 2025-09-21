@@ -23,6 +23,7 @@ const StreamingSidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [fenInput, setFenInput] = useState('');
   const [showFenInput, setShowFenInput] = useState(false);
+  const [squareTransparency, setSquareTransparency] = useState(0);
 
   const handleModeChange = (newMode: Mode) => {
     setMode(newMode);
@@ -45,6 +46,11 @@ const StreamingSidebar: React.FC = () => {
   const handleShare = () => {
     shareUrl();
     setIsOpen(false);
+  };
+
+  const handleTransparencyChange = (value: number) => {
+    setSquareTransparency(value);
+    document.documentElement.style.setProperty('--square-transparency', value.toString());
   };
 
   const handleExport = (type: 'fen' | 'pgn' | 'json') => {
@@ -304,6 +310,31 @@ const StreamingSidebar: React.FC = () => {
                   <span>🔄</span>
                   <span>Flip ({orientation})</span>
                 </button>
+                <div className="px-3 py-2">
+                  <div className="text-xs text-[var(--light-gray)] mb-2">Square Transparency</div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleTransparencyChange(0)}
+                      className={`flex-1 px-2 py-1 text-xs rounded transition-all duration-200 ${
+                        squareTransparency === 0
+                          ? 'bg-[var(--neon-green)] text-black'
+                          : 'bg-[var(--medium-gray)] text-white hover:bg-[var(--light-gray)]'
+                      }`}
+                    >
+                      Transparent
+                    </button>
+                    <button
+                      onClick={() => handleTransparencyChange(1)}
+                      className={`flex-1 px-2 py-1 text-xs rounded transition-all duration-200 ${
+                        squareTransparency === 1
+                          ? 'bg-[var(--neon-green)] text-black'
+                          : 'bg-[var(--medium-gray)] text-white hover:bg-[var(--light-gray)]'
+                      }`}
+                    >
+                      Opaque
+                    </button>
+                  </div>
+                </div>
                 {mode === 'setup' && (
                   <>
                     <button

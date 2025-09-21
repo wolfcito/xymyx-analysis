@@ -96,12 +96,13 @@ const Board: React.FC = () => {
     const square = `${file}${rank}` as Square;
     const piece = position[square];
     const bg = isDark(fileIdx, rankIdx) ? 'bg-[#2a2a2a]' : 'bg-[#1a1a1a]';
+    const squareOpacity = `opacity-[var(--square-transparency)]`;
     const isSelected = selectedSquare === square;
 
     return (
       <div
         key={square}
-        className={`relative ${bg} ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} cursor-pointer border border-[var(--light-gray)] hover:border-[var(--neon-green)] transition-all duration-200`}
+        className={`relative ${bg} ${squareOpacity} ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} cursor-pointer border border-[var(--light-gray)] hover:border-[var(--neon-green)] transition-all duration-200`}
         data-square={square}
         onClick={() => handleSquareClick(square)}
         onDragOver={handleDragOver}

@@ -9,6 +9,7 @@
   --dark-gray: #1a1a1a;
   --medium-gray: #2a2a2a;
   --light-gray: #404040;
+  --square-transparency: 0;
 }
 
 @theme inline {
@@ -20,6 +21,7 @@
   --color-dark-gray: var(--dark-gray);
   --color-medium-gray: var(--medium-gray);
   --color-light-gray: var(--light-gray);
+  --color-square-transparency: var(--square-transparency);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
