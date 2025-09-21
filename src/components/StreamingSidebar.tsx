@@ -136,7 +136,7 @@ const StreamingSidebar: React.FC = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex border-b border-[var(--neon-green)]">
+      <div className="flex">
         {[
           { id: 'moves', label: 'MOVES', icon: '♟️' },
           { id: 'chat', label: 'CHAT', icon: '💬' },
@@ -145,7 +145,7 @@ const StreamingSidebar: React.FC = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as 'moves' | 'chat' | 'analysis')}
-            className={`flex-1 py-3 px-4 text-sm font-semibold transition-all duration-200 ${
+            className={`flex-1 py-3 px-4 text-sm transition-all duration-200 ${
               activeTab === tab.id
                 ? 'bg-[var(--neon-green)] text-black'
                 : 'text-[var(--neon-green)] hover:bg-[var(--medium-gray)]'
@@ -162,9 +162,7 @@ const StreamingSidebar: React.FC = () => {
         {activeTab === 'moves' && (
           <div className="h-full flex flex-col">
             <div className="p-4 border-b border-[var(--light-gray)]">
-              <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
-                Game Moves
-              </h3>
+              <h3 className="text-white font-semibold text-sm tracking-wide">Game Moves</h3>
             </div>
             <div className="flex-1 overflow-y-auto">
               <MoveList />
@@ -180,9 +178,7 @@ const StreamingSidebar: React.FC = () => {
         {activeTab === 'chat' && (
           <div className="h-full flex flex-col">
             <div className="p-4 border-b border-[var(--light-gray)]">
-              <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
-                Live Chat
-              </h3>
+              <h3 className="text-white font-semibold text-sm tracking-wide">Live Chat</h3>
               <div className="text-xs text-[var(--light-gray)] mt-1">127 viewers</div>
             </div>
             <div className="flex-1 overflow-y-auto chat-window">
@@ -216,13 +212,11 @@ const StreamingSidebar: React.FC = () => {
         {activeTab === 'analysis' && (
           <div className="h-full flex flex-col">
             <div className="p-4 border-b border-[var(--light-gray)]">
-              <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
-                Position Analysis
-              </h3>
+              <h3 className="text-white font-semibold text-sm tracking-wide">Position Analysis</h3>
             </div>
             <div className="flex-1 p-4 space-y-4">
               <div className="stats-panel">
-                <div className="text-xs text-[var(--light-gray)] uppercase tracking-wide mb-2">
+                <div className="text-xs text-[var(--light-gray)] tracking-wide mb-2">
                   Engine Evaluation
                 </div>
                 <div className="text-2xl font-bold text-white">+0.3</div>
@@ -230,23 +224,17 @@ const StreamingSidebar: React.FC = () => {
               </div>
 
               <div className="stats-panel">
-                <div className="text-xs text-[var(--light-gray)] uppercase tracking-wide mb-2">
-                  Best Line
-                </div>
+                <div className="text-xs text-[var(--light-gray)] tracking-wide mb-2">Best Line</div>
                 <div className="text-sm text-white font-mono">1. e4 e5 2. Nf3 Nc6 3. Bb5</div>
               </div>
 
               <div className="stats-panel">
-                <div className="text-xs text-[var(--light-gray)] uppercase tracking-wide mb-2">
-                  Depth
-                </div>
+                <div className="text-xs text-[var(--light-gray)] tracking-wide mb-2">Depth</div>
                 <div className="text-lg font-bold text-[var(--neon-green)]">18</div>
               </div>
 
               <div className="stats-panel">
-                <div className="text-xs text-[var(--light-gray)] uppercase tracking-wide mb-2">
-                  Time
-                </div>
+                <div className="text-xs text-[var(--light-gray)] tracking-wide mb-2">Time</div>
                 <div className="text-sm text-white">00:05:23</div>
               </div>
             </div>
@@ -255,7 +243,7 @@ const StreamingSidebar: React.FC = () => {
       </div>
 
       {/* Controls Panel - Bottom */}
-      <div className="border-t border-[var(--neon-green)] p-4">
+      <div className="p-4">
         <div className="relative">
           {/* Main Dropdown Button */}
           <button
@@ -282,7 +270,7 @@ const StreamingSidebar: React.FC = () => {
             <div className="absolute bottom-full left-0 right-0 mb-2 bg-[var(--dark-gray)] border border-[var(--neon-green)] rounded-lg shadow-lg z-50 neon-glow">
               <div className="p-2 space-y-1">
                 {/* Mode Selection */}
-                <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] uppercase tracking-wide border-b border-[var(--light-gray)]">
+                <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] tracking-wide border-b border-[var(--light-gray)]">
                   Mode
                 </div>
                 {(['setup', 'annotate', 'play'] as Mode[]).map((modeOption) => (
@@ -299,7 +287,7 @@ const StreamingSidebar: React.FC = () => {
                 {/* Separator */}
                 <div className="h-px bg-[var(--light-gray)] my-2"></div>
                 {/* Board Controls */}
-                <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] uppercase tracking-wide border-b border-[var(--light-gray)]">
+                <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] tracking-wide border-b border-[var(--light-gray)]">
                   Board
                 </div>
                 <button
@@ -361,7 +349,7 @@ const StreamingSidebar: React.FC = () => {
                 {/* Separator */}
                 <div className="h-px bg-[var(--light-gray)] my-2"></div>
                 {/* Import/Export */}
-                <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] uppercase tracking-wide border-b border-[var(--light-gray)]">
+                <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] tracking-wide border-b border-[var(--light-gray)]">
                   Data
                 </div>
                 <button
