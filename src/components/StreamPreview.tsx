@@ -75,48 +75,66 @@ const StreamPreview: React.FC = () => {
   } as const;
 
   return (
-    <div className="space-y-3 p-2 sm:p-5 min-h-[220px]" style={sectionBgStyle}>
-      <div className="flex items-center justify-between">
-        <h3 className="text-white font-semibold text-sm uppercase tracking-wide">Live Stream</h3>
-        <button
-          onClick={handleToggle}
-          className={`px-3 py-1.5 text-xs font-semibold rounded border transition-colors ${
-            isOn
-              ? 'bg-[var(--neon-green)] text-black border-[var(--neon-green)]'
-              : 'bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)]'
-          }`}
+    <div className="w-full">
+      {/* Frame with fixed aspect ratio to preserve border integrity */}
+      <div className="relative w-full aspect-[1024/578]" style={sectionBgStyle}>
+        {/* Safe area inside the frame (percentages tuned to avoid cutting the border) */}
+        <div
+          className="absolute inset-0"
+          style={{ top: '7%', right: '4.5%', bottom: '9%', left: '4.5%' }}
         >
-          {isOn ? 'Apagar cámara' : 'Encender cámara'}
-        </button>
-      </div>
+          <div className="relative h-full">
+            {/* Video / Placeholder layer */}
+            <div className="absolute inset-0" aria-label="stream-preview">
+              {isOn && stream ? (
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 w-full h-full object-cover z-10"
+                  muted
+                  playsInline
+                  autoPlay
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                  <Image
+                    src={placeholderUrl}
+                    alt="camera-off"
+                    width={784}
+                    height={886}
+                    className="max-h-full w-auto object-contain"
+                    onError={(e) => {
+                      const img = e.currentTarget as HTMLImageElement;
+                      img.src = fallbackPlaceholderUrl;
+                    }}
+                  />
+                </div>
+              )}
+            </div>
 
-      <div className="relative h-32 sm:h-36 md:h-40 overflow-hidden" aria-label="stream-preview">
-        {isOn && stream ? (
-          <video
-            ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover z-10"
-            muted
-            playsInline
-            autoPlay
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-            <Image
-              src={placeholderUrl}
-              alt="camera-off"
-              width={784}
-              height={886}
-              className="max-h-full w-auto object-contain"
-              onError={(e) => {
-                const img = e.currentTarget as HTMLImageElement;
-                img.src = fallbackPlaceholderUrl;
-              }}
-            />
+            {/* Top overlay bar for title and button */}
+            <div className="absolute inset-x-0 top-0 z-20 pointer-events-none">
+              <div className="h-12 bg-gradient-to-b from-black/50 to-transparent"></div>
+              <div className="absolute top-0 left-0 right-0 p-2 sm:p-3 flex items-center justify-between">
+                <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
+                  Live Stream
+                </h3>
+                <button
+                  onClick={handleToggle}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded border transition-colors pointer-events-auto ${
+                    isOn
+                      ? 'bg-[var(--neon-green)] text-black border-[var(--neon-green)]'
+                      : 'bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)]'
+                  }`}
+                >
+                  {isOn ? 'Apagar cámara' : 'Encender cámara'}
+                </button>
+              </div>
+            </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {error && <p className="text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
     </div>
   );
 };
