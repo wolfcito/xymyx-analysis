@@ -1,9 +1,28 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import type { Piece } from '@/types';
 import { useChessStore } from '@/hooks/useChessStore';
 
 const pieces: Piece[] = ['wK', 'wQ', 'wR', 'wB', 'wN', 'wP', 'bK', 'bQ', 'bR', 'bB', 'bN', 'bP'];
+
+const pieceSrc = (p: Piece) => {
+  const pieceMap: Record<Piece, string> = {
+    wK: '/pieces/png/xymyx/rey-dorado.png',
+    wQ: '/pieces/png/xymyx/dama-dorado.png',
+    wR: '/pieces/png/xymyx/torre-dorado.png',
+    wB: '/pieces/png/xymyx/alfil-dorado.png',
+    wN: '/pieces/png/xymyx/caballo-dorado.png',
+    wP: '/pieces/png/xymyx/peon-dorado.png',
+    bK: '/pieces/png/xymyx/rey-morado.png',
+    bQ: '/pieces/png/xymyx/dama-morado.png',
+    bR: '/pieces/png/xymyx/torre-morado.png',
+    bB: '/pieces/png/xymyx/alfil-morado.png',
+    bN: '/pieces/png/xymyx/caballo-morado.png',
+    bP: '/pieces/png/xymyx/peon-morado.png',
+  };
+  return pieceMap[p];
+};
 
 const pieceLetter = (p: Piece) => {
   const pieceMap: Record<Piece, string> = {
@@ -56,10 +75,15 @@ const PieceTray: React.FC = () => {
       draggable
       onDragStart={(e) => handleDragStart(e, piece)}
     >
-      <div
-        className={`w-full h-full flex items-center justify-center ${pieceColor(piece)} font-bold text-lg`}
-      >
-        {pieceLetter(piece)}
+      <div className="w-full h-full flex items-center justify-center p-1">
+        <Image
+          src={pieceSrc(piece)}
+          alt={pieceLetter(piece)}
+          width={48}
+          height={48}
+          className="w-full h-full object-contain"
+          draggable={false}
+        />
       </div>
     </div>
   );

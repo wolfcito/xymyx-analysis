@@ -1,13 +1,31 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import type { Square, Piece } from '@/types';
 import { useChessStore } from '@/hooks/useChessStore';
 
 const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
 const ranks = [8, 7, 6, 5, 4, 3, 2, 1] as const;
 
-// const pieceSrc = (p: Piece) => `/pieces/svg/classic/${p}.svg`; // No longer used - pieces are now displayed as letters
+const pieceSrc = (p: Piece) => {
+  const pieceMap: Record<Piece, string> = {
+    wK: '/pieces/png/xymyx/rey-dorado.png',
+    wQ: '/pieces/png/xymyx/dama-dorado.png',
+    wR: '/pieces/png/xymyx/torre-dorado.png',
+    wB: '/pieces/png/xymyx/alfil-dorado.png',
+    wN: '/pieces/png/xymyx/caballo-dorado.png',
+    wP: '/pieces/png/xymyx/peon-dorado.png',
+    bK: '/pieces/png/xymyx/rey-morado.png',
+    bQ: '/pieces/png/xymyx/dama-morado.png',
+    bR: '/pieces/png/xymyx/torre-morado.png',
+    bB: '/pieces/png/xymyx/alfil-morado.png',
+    bN: '/pieces/png/xymyx/caballo-morado.png',
+    bP: '/pieces/png/xymyx/peon-morado.png',
+  };
+  return pieceMap[p];
+};
 
+// Keep these for fallback or other uses
 const pieceLetter = (p: Piece) => {
   const pieceMap: Record<Piece, string> = {
     wK: 'K',
@@ -118,11 +136,14 @@ const Board: React.FC = () => {
             draggable={mode === 'setup' || mode === 'play'}
             onDragStart={(e) => handleDragStart(e, square)}
           >
-            <div
-              className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full bg-[var(--dark-gray)] border-2 ${piece.startsWith('w') ? 'border-white' : 'border-[var(--light-gray)]'} flex items-center justify-center ${pieceColor(piece)} font-bold text-sm sm:text-base lg:text-lg shadow-lg`}
-            >
-              {pieceLetter(piece)}
-            </div>
+            <Image
+              src={pieceSrc(piece)}
+              alt={pieceLetter(piece)}
+              width={32}
+              height={32}
+              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 object-contain drop-shadow-lg"
+              draggable={false}
+            />
           </div>
         )}
         <span className="absolute bottom-1 right-1 text-[10px] text-[var(--neon-green)] select-none pointer-events-none font-mono">
