@@ -120,7 +120,7 @@ const Board: React.FC = () => {
     return (
       <div
         key={square}
-        className={`relative ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} cursor-pointer border border-[var(--light-gray)] hover:border-[var(--neon-green)] transition-all duration-200`}
+        className={`relative ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} cursor-pointer transition-all duration-200`}
         data-square={square}
         onClick={() => handleSquareClick(square)}
         onDragOver={handleDragOver}
