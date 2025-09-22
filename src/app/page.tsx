@@ -1,5 +1,6 @@
 import Board from '@/components/Board';
 import AnnotationLayer from '@/components/AnnotationLayer';
+import HighlightsLayer from '@/components/HighlightsLayer';
 import StreamingHeader from '@/components/StreamingHeader';
 import StreamingSidebar from '@/components/StreamingSidebar';
 import StateLoader from '@/components/StateLoader';
@@ -26,8 +27,16 @@ export default function HomePage() {
             <div className="flex-1 flex items-center justify-center min-h-0 p-6 board-container">
               <div className="relative w-full h-full flex items-center justify-center">
                 <div className="relative aspect-square w-full h-full max-w-[min(100%,60vh)] max-h-[min(100%,60vh)] ml-3">
-                  <Board />
-                  <div className="absolute inset-0 pointer-events-none">
+                  {/* Highlights under pieces */}
+                  <div className="absolute inset-0 z-10 pointer-events-none">
+                    <HighlightsLayer />
+                  </div>
+                  {/* Pieces */}
+                  <div className="relative z-20">
+                    <Board />
+                  </div>
+                  {/* Arrows and interaction overlay */}
+                  <div className="absolute inset-0 z-30">
                     <AnnotationLayer />
                   </div>
                 </div>

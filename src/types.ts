@@ -64,12 +64,13 @@ export type GameState = {
 
 export const INITIAL_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
+// Neon color palette for annotations and UI accents
 export const PIECE_COLORS = {
-  green: '#15803d',
-  red: '#dc2626',
-  yellow: '#ca8a04',
-  blue: '#2563eb',
-  orange: '#ea580c',
+  green: '#00ff41', // neon green
+  red: '#ff1744', // neon red/pinkish
+  yellow: '#ffff00', // neon yellow
+  blue: '#00bfff', // neon blue (electric)
+  orange: '#ff6a00', // neon orange
 };
 
 export const PIECE_VALUES: Record<string, Piece> = {
