@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useRef } from 'react';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 import type { Square, Arrow, SquareHighlight } from '@/types';
 // colors are chosen from AnnotatePanel; no local palette here
 
@@ -21,7 +21,7 @@ const AnnotationLayer: React.FC = () => {
     annotateStroke,
     annotateCircleRadius,
     annotateHighlightOpacity,
-  } = useChessStore();
+  } = useXymyxStore();
   const [isDrawing, setIsDrawing] = useState(false);
   const [startSquare, setStartSquare] = useState<Square | null>(null);
   const [dragPoint, setDragPoint] = useState<{ x: number; y: number } | null>(null);

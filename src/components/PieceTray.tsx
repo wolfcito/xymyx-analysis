@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import type { Piece } from '@/types';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 
 const pieces: Piece[] = ['wK', 'wQ', 'wR', 'wB', 'wN', 'wP', 'bK', 'bQ', 'bR', 'bB', 'bN', 'bP'];
 
@@ -47,7 +47,7 @@ const pieceColor = (p: Piece) => {
 };
 
 const PieceTray: React.FC = () => {
-  const { mode } = useChessStore();
+  const { mode } = useXymyxStore();
   const [selectedPiece, setSelectedPiece] = useState<Piece | null>(null);
 
   if (mode !== 'setup') {

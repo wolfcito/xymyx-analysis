@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import type { Square, Piece } from '@/types';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 
 const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
 const ranks = [8, 7, 6, 5, 4, 3, 2, 1] as const;
@@ -49,7 +49,7 @@ const pieceColor = (p: Piece) => {
 };
 
 const Board: React.FC = () => {
-  const { position, mode, orientation, makeMove, setPiece } = useChessStore();
+  const { position, mode, orientation, makeMove, setPiece } = useXymyxStore();
   const [draggedPiece, setDraggedPiece] = useState<{ piece: Piece; square: Square } | null>(null);
   const [selectedSquare, setSelectedSquare] = useState<Square | null>(null);
 
@@ -157,7 +157,7 @@ const Board: React.FC = () => {
     <div className="relative w-full h-full">
       <div
         role="grid"
-        aria-label="chess-board"
+        aria-label="xymyx-board"
         className="w-full h-full aspect-square grid grid-cols-8 grid-rows-8"
       >
         {displayRanks.map((_, rIdx) => displayFiles.map((_, fIdx) => renderSquare(fIdx, rIdx)))}

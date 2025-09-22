@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'XYMYX Analyzer - Chess Analysis with Streaming Overlay',
+  title: 'XYMYX Analyzer - XYMYX Analysis with Streaming Overlay',
   description:
     'Analizador avanzado de ajedrez con interfaz de streaming overlay moderna. Configura posiciones, anota movimientos, analiza partidas y exporta estudios con diseño futurista.',
   metadataBase: new URL('http://localhost:3000'),
   openGraph: {
-    title: 'XYMYX Analyzer - Chess Analysis with Streaming Overlay',
+    title: 'XYMYX Analyzer - XYMYX Analysis with Streaming Overlay',
     description:
       'Analiza posiciones de ajedrez con interfaz de streaming overlay moderna y efectos neón.',
     type: 'website',

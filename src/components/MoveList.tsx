@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 
 const MoveList: React.FC = () => {
-  const { moves, currentMoveIndex, undoMove, redoMove, goToMove } = useChessStore();
+  const { moves, currentMoveIndex, undoMove, redoMove, goToMove } = useXymyxStore();
 
   const handleMoveClick = (index: number) => {
     goToMove(index);

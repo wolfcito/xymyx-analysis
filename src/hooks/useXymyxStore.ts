@@ -16,7 +16,7 @@ import { INITIAL_FEN, PIECE_COLORS } from '@/types';
 import { fenToPosition, positionToFen } from '@/lib/fen';
 import { createShareUrl, loadStateFromUrl } from '@/lib/share';
 
-interface ChessStore extends GameState {
+interface XymyxStore extends GameState {
   // Annotation settings
   annotateColor: string;
   annotateStroke: number; // px in viewBox units
@@ -82,7 +82,7 @@ const initialState: GameState = {
   fen: INITIAL_FEN,
 };
 
-export const useChessStore = create<ChessStore>()(
+export const useXymyxStore = create<XymyxStore>()(
   persist(
     (set, get) => ({
       ...initialState,
@@ -308,7 +308,7 @@ export const useChessStore = create<ChessStore>()(
       reset: () => set(initialState),
     }),
     {
-      name: 'chess-annotator-storage',
+      name: 'xymyx-annotator-storage',
       partialize: (state) => ({
         position: state.position,
         moves: state.moves,

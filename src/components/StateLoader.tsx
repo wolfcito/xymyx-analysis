@@ -1,9 +1,9 @@
 'use client';
 import { useEffect } from 'react';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 
 const StateLoader: React.FC = () => {
-  const { loadFromUrl } = useChessStore();
+  const { loadFromUrl } = useXymyxStore();
 
   useEffect(() => {
     loadFromUrl();

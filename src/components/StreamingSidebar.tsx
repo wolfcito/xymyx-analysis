@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import MoveList from './MoveList';
 import PieceTray from './PieceTray';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 import type { Mode } from '@/types';
 import StreamPreview from './StreamPreview';
 import AnnotatePanel from './AnnotatePanel';
@@ -21,7 +21,7 @@ const StreamingSidebar: React.FC = () => {
     exportPgn,
     exportJson,
     shareUrl,
-  } = useChessStore();
+  } = useXymyxStore();
   const [isOpen, setIsOpen] = useState(false);
   const [fenInput, setFenInput] = useState('');
   const [showFenInput, setShowFenInput] = useState(false);

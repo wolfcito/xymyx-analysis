@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 import { PIECE_COLORS } from '@/types';
 
 const AnnotatePanel: React.FC = () => {
@@ -16,7 +16,7 @@ const AnnotatePanel: React.FC = () => {
     setAnnotateCircleRadius,
     annotateHighlightOpacity,
     setAnnotateHighlightOpacity,
-  } = useChessStore();
+  } = useXymyxStore();
 
   return (
     <div className="space-y-3">

@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useChessStore } from '@/hooks/useChessStore';
+import { useXymyxStore } from '@/hooks/useXymyxStore';
 import type { Mode } from '@/types';
 
 const Toolbar: React.FC = () => {
@@ -16,7 +16,7 @@ const Toolbar: React.FC = () => {
     exportPgn,
     exportJson,
     shareUrl,
-  } = useChessStore();
+  } = useXymyxStore();
   const [isOpen, setIsOpen] = useState(false);
   const [fenInput, setFenInput] = useState('');
   const [showFenInput, setShowFenInput] = useState(false);

@@ -6,7 +6,7 @@ import AnnotationLayer from '@/components/AnnotationLayer';
 describe('basic components', () => {
   it('renders Board with grid role', () => {
     render(<Board />);
-    const board = screen.getByRole('grid', { name: /chess-board/i });
+    const board = screen.getByRole('grid', { name: /xymyx-board/i });
     expect(board).toBeInTheDocument();
   });
 
@@ -16,4 +16,3 @@ describe('basic components', () => {
     expect(layer.tagName.toLowerCase()).toBe('svg');
   });
 });
-
