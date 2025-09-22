@@ -270,7 +270,7 @@ const StreamingSidebar: React.FC = () => {
 
           {/* Dropdown Menu */}
           {isOpen && (
-            <div className="absolute bottom-full left-0 right-0 mb-2 bg-[var(--dark-gray)] border border-[var(--neon-green)] rounded-lg shadow-lg z-50 neon-glow">
+            <div className="absolute bottom-full left-0 right-0 mb-2 bg-[var(--dark-gray)] border border-[var(--dark-gray)] rounded-lg z-50">
               <div className="p-2 space-y-1">
                 {/* Mode Selection */}
                 <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] tracking-wide border-b border-[var(--light-gray)]">
@@ -287,68 +287,7 @@ const StreamingSidebar: React.FC = () => {
                     {mode === modeOption && <span className="ml-auto text-xs">✓</span>}
                   </button>
                 ))}
-                {/* Separator */}
-                <div className="h-px bg-[var(--light-gray)] my-2"></div>
-                {/* Board Controls */}
-                <div className="px-3 py-2 text-xs font-semibold text-[var(--neon-green)] tracking-wide border-b border-[var(--light-gray)]">
-                  Board
-                </div>
-                <button
-                  onClick={handleFlip}
-                  className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)] transition-all duration-200"
-                >
-                  <span>🔄</span>
-                  <span>Flip ({orientation})</span>
-                </button>
-                <div className="px-3 py-2">
-                  <div className="text-xs text-[var(--light-gray)] mb-2">Square Transparency</div>
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleTransparencyChange(0)}
-                      className={`flex-1 px-2 py-1 text-xs rounded transition-all duration-200 ${
-                        squareTransparency === 0
-                          ? 'bg-[var(--neon-green)] text-black'
-                          : 'bg-[var(--medium-gray)] text-white hover:bg-[var(--light-gray)]'
-                      }`}
-                    >
-                      Transparent
-                    </button>
-                    <button
-                      onClick={() => handleTransparencyChange(1)}
-                      className={`flex-1 px-2 py-1 text-xs rounded transition-all duration-200 ${
-                        squareTransparency === 1
-                          ? 'bg-[var(--neon-green)] text-black'
-                          : 'bg-[var(--medium-gray)] text-white hover:bg-[var(--light-gray)]'
-                      }`}
-                    >
-                      Opaque
-                    </button>
-                  </div>
-                </div>
-                {mode === 'setup' && (
-                  <>
-                    <button
-                      onClick={() => {
-                        clearBoard();
-                        setIsOpen(false);
-                      }}
-                      className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-red-600 hover:text-white transition-all duration-200"
-                    >
-                      <span>🗑️</span>
-                      <span>Clear Board</span>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setInitialPosition();
-                        setIsOpen(false);
-                      }}
-                      className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-white rounded hover:bg-[var(--neon-green)] hover:text-black transition-all duration-200"
-                    >
-                      <span>🏁</span>
-                      <span>Initial Position</span>
-                    </button>
-                  </>
-                )}
+
                 {/* Separator */}
                 <div className="h-px bg-[var(--light-gray)] my-2"></div>
                 {/* Import/Export */}

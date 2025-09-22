@@ -45,7 +45,16 @@ const pieceLetter = (p: Piece) => {
 // color helper unused for image-based pieces; removed to satisfy lint
 
 const PieceTray: React.FC = () => {
-  const { mode, selectedPlacementPiece, setSelectedPlacementPiece } = useXymyxStore();
+  const {
+    mode,
+    selectedPlacementPiece,
+    setSelectedPlacementPiece,
+    orientation,
+    setOrientation,
+    clearBoard,
+    setInitialPosition,
+  } = useXymyxStore();
+  const [squareTransparency, setSquareTransparency] = React.useState<number>(0);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -97,12 +106,57 @@ const PieceTray: React.FC = () => {
     <div aria-label="piece-tray" className="space-y-3">
       <h3 className="text-sm text-white tracking-wide">Piece Tray</h3>
       <div className="grid grid-cols-6 gap-2">{pieces.map(renderPiece)}</div>
-      {selectedPlacementPiece && (
+      {selectedPlacementPiece ? (
         <div className="text-xs text-white font-mono">
           Selected: {selectedPlacementPiece}. Click any square to place repeatedly. Press Esc to
           clear.
         </div>
+      ) : (
+        <div className="text-xs text-white font-mono">
+          Click any piece to place repeatedly. Press Esc to clear.
+        </div>
       )}
+
+      {/* Board controls relocated here */}
+      <div className="mt-4 space-y-3">
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            onClick={() => setOrientation(orientation === 'white' ? 'black' : 'white')}
+            className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition"
+          >
+            Flip ({orientation})
+          </button>
+          <button
+            onClick={clearBoard}
+            className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition"
+          >
+            Clear Board
+          </button>
+          <button
+            onClick={setInitialPosition}
+            className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition col-span-2"
+          >
+            Initial Position
+          </button>
+        </div>
+        <label className="text-xs text-white/70 flex items-center justify-between gap-2">
+          <span>Square Transparency</span>
+          <input
+            type="range"
+            min={0}
+            max={0.9}
+            step={0.05}
+            value={squareTransparency}
+            onChange={(e) => {
+              const v = parseFloat(e.target.value);
+              setSquareTransparency(v);
+              document.documentElement.style.setProperty('--square-transparency', v.toString());
+            }}
+            className="flex-1 mx-2"
+          />
+          <span className="w-8 text-right">{squareTransparency.toFixed(2)}</span>
+        </label>
+      </div>
     </div>
   );
 };
