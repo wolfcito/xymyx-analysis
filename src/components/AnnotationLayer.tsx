@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useRef } from 'react';
 import { useXymyxStore } from '@/hooks/useXymyxStore';
-import type { Square, Arrow, SquareHighlight } from '@/types';
+import type { Square, Arrow } from '@/types';
 // colors are chosen from AnnotatePanel; no local palette here
 
 const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
@@ -173,24 +173,7 @@ const AnnotationLayer: React.FC = () => {
     );
   };
 
-  const renderHighlight = (highlight: SquareHighlight) => {
-    const fileIndex = displayFiles.indexOf(highlight.square[0] as (typeof displayFiles)[number]);
-    const rankIndex = displayRanks.indexOf(
-      parseInt(highlight.square[1]) as (typeof displayRanks)[number]
-    );
-
-    return (
-      <rect
-        key={highlight.square}
-        x={fileIndex * (100 / 8)}
-        y={rankIndex * (100 / 8)}
-        width={100 / 8}
-        height={100 / 8}
-        fill={highlight.color}
-        fillOpacity={annotateHighlightOpacity}
-      />
-    );
-  };
+  // Highlights are drawn in a separate layer under pieces (HighlightsLayer)
 
   return (
     <div className="relative w-full h-full">
@@ -203,7 +186,6 @@ const AnnotationLayer: React.FC = () => {
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
       >
-        {highlights.map(renderHighlight)}
         {arrows.map(renderArrow)}
         {isDrawing &&
           startSquare &&
