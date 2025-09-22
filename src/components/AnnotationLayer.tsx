@@ -250,7 +250,7 @@ const AnnotationLayer: React.FC = () => {
       </svg>
 
       {mode === 'annotate' && (
-        <div className="absolute bottom-2 left-2 text-xs text-white bg-black/70 px-2 py-1 rounded">
+        <div className="absolute -bottom-14 left-2 text-xs text-white bg-black/70 px-2 py-1 rounded">
           Click+drag: arrow | Shift+click: highlight
         </div>
       )}

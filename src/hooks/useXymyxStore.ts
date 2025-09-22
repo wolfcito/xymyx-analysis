@@ -88,7 +88,7 @@ export const useXymyxStore = create<XymyxStore>()(
       ...initialState,
       // Defaults for annotate tools
       annotateColor: PIECE_COLORS.green,
-      annotateStroke: 2,
+      annotateStroke: 1,
       annotateCircleRadius: 1.6,
       annotateHighlightOpacity: 0.6,
 

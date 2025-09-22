@@ -115,9 +115,7 @@ const StreamPreview: React.FC = () => {
             <div className="absolute inset-x-0 top-0 z-20 pointer-events-none">
               <div className="h-12 bg-gradient-to-b from-black/50 to-transparent"></div>
               <div className="absolute top-0 left-0 right-0 p-2 sm:p-3 flex items-center justify-between">
-                <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
-                  Live Stream
-                </h3>
+                <h3 className="text-white text-sm tracking-wide">Live Stream</h3>
                 <button
                   onClick={handleToggle}
                   className={`px-3 py-1.5 text-xs font-semibold rounded border transition-colors pointer-events-auto ${
