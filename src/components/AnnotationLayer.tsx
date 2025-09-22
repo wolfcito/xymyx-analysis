@@ -20,7 +20,6 @@ const AnnotationLayer: React.FC = () => {
     annotateColor,
     annotateStroke,
     annotateCircleRadius,
-    annotateHighlightOpacity,
   } = useXymyxStore();
   const [isDrawing, setIsDrawing] = useState(false);
   const [startSquare, setStartSquare] = useState<Square | null>(null);
@@ -175,12 +174,15 @@ const AnnotationLayer: React.FC = () => {
 
   // Highlights are drawn in a separate layer under pieces (HighlightsLayer)
 
+  const containerEvents = mode === 'annotate' ? 'pointer-events-auto' : 'pointer-events-none';
+  const svgEvents = mode === 'annotate' ? 'pointer-events-auto' : 'pointer-events-none';
+
   return (
-    <div className="relative w-full h-full">
+    <div className={`absolute inset-0 z-30 w-full h-full ${containerEvents}`}>
       <svg
         ref={svgRef}
         aria-label="annotation-layer"
-        className="absolute inset-0 w-full h-full pointer-events-auto"
+        className={`absolute inset-0 w-full h-full ${svgEvents}`}
         viewBox="0 0 100 100"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}

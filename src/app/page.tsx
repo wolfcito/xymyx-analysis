@@ -36,9 +36,7 @@ export default function HomePage() {
                     <Board />
                   </div>
                   {/* Arrows and interaction overlay */}
-                  <div className="absolute inset-0 z-30">
-                    <AnnotationLayer />
-                  </div>
+                  <AnnotationLayer />
                 </div>
               </div>
             </div>

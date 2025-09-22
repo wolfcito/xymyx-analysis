@@ -26,6 +26,10 @@ interface XymyxStore extends GameState {
   setAnnotateStroke: (w: number) => void;
   setAnnotateCircleRadius: (r: number) => void;
   setAnnotateHighlightOpacity: (o: number) => void;
+
+  // Setup placement
+  selectedPlacementPiece: Piece | null;
+  setSelectedPlacementPiece: (p: Piece | null) => void;
   // Position management
   setPiece: (square: Square, piece: Piece | null) => void;
   clearBoard: () => void;
@@ -96,6 +100,10 @@ export const useXymyxStore = create<XymyxStore>()(
       setAnnotateStroke: (w) => set({ annotateStroke: w }),
       setAnnotateCircleRadius: (r) => set({ annotateCircleRadius: r }),
       setAnnotateHighlightOpacity: (o) => set({ annotateHighlightOpacity: o }),
+
+      // Setup placement
+      selectedPlacementPiece: null,
+      setSelectedPlacementPiece: (p) => set({ selectedPlacementPiece: p }),
 
       setPiece: (square, piece) =>
         set((state) => {
@@ -323,6 +331,7 @@ export const useXymyxStore = create<XymyxStore>()(
         annotateStroke: state.annotateStroke,
         annotateCircleRadius: state.annotateCircleRadius,
         annotateHighlightOpacity: state.annotateHighlightOpacity,
+        selectedPlacementPiece: state.selectedPlacementPiece,
       }),
     }
   )

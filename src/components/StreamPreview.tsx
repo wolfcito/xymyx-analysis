@@ -44,7 +44,7 @@ const StreamPreview: React.FC = () => {
         audio: false,
       });
       setStream(media);
-    } catch (e) {
+    } catch {
       setError('No se pudo acceder a la cámara');
       setIsOn(false);
     }

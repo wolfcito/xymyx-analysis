@@ -44,12 +44,11 @@ const pieceLetter = (p: Piece) => {
   return pieceMap[p];
 };
 
-const pieceColor = (p: Piece) => {
-  return p.startsWith('w') ? 'text-white' : 'text-black';
-};
+// color helper unused for image-based pieces; removed to satisfy lint
 
 const Board: React.FC = () => {
-  const { position, mode, orientation, makeMove, setPiece } = useXymyxStore();
+  const { position, mode, orientation, makeMove, setPiece, selectedPlacementPiece } =
+    useXymyxStore();
   const [draggedPiece, setDraggedPiece] = useState<{ piece: Piece; square: Square } | null>(null);
   const [selectedSquare, setSelectedSquare] = useState<Square | null>(null);
 
@@ -60,6 +59,11 @@ const Board: React.FC = () => {
   const isDark = (fileIdx: number, rankIdx: number) => (fileIdx + rankIdx) % 2 === 1;
 
   const handleSquareClick = (square: Square) => {
+    if (mode === 'setup' && selectedPlacementPiece) {
+      setPiece(square, selectedPlacementPiece);
+      return;
+    }
+
     if (mode === 'play') {
       if (selectedSquare) {
         if (selectedSquare !== square) {
@@ -120,14 +124,17 @@ const Board: React.FC = () => {
     return (
       <div
         key={square}
-        className={`relative ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} cursor-pointer transition-all duration-200`}
+        className={`relative ${isSelected ? 'ring-2 ring-[var(--neon-green)] neon-glow' : ''} ${
+          mode === 'setup' && selectedPlacementPiece ? 'cursor-crosshair' : 'cursor-pointer'
+        } transition-all duration-200`}
         data-square={square}
         onClick={() => handleSquareClick(square)}
+        onMouseDown={() => handleSquareClick(square)}
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, square)}
       >
         {/* Background square with transparency */}
-        <div className={`absolute inset-0 ${bg} ${squareOpacity}`}></div>
+        <div className={`absolute inset-0 ${bg} ${squareOpacity} pointer-events-none`}></div>
         {piece && (
           <div
             className={`absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none ${

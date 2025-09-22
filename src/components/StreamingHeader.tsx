@@ -10,18 +10,18 @@ const StreamingHeader: React.FC = () => {
           <div className="w-6 h-6 lg:w-8 lg:h-8 bg-gradient-to-br from-[var(--neon-green)] to-[var(--neon-green-dark)] rounded-full flex items-center justify-center">
             <span className="text-black font-bold text-sm lg:text-lg">X</span>
           </div>
-          <h1 className="text-lg lg:text-2xl neon-text">XYMYX ANALYZER</h1>
+          <h1 className="text-lg lg:text-2xl text-white">XYMYX ANALYZER</h1>
         </div>
 
         {/* Animated elements */}
         <div className="hidden lg:flex items-center space-x-2">
-          <div className="w-3 h-3 bg-[var(--neon-green)] rounded-full neon-pulse"></div>
+          <div className="w-3 h-3 bg-white rounded-full neon-pulse"></div>
           <div
-            className="w-2 h-2 bg-[var(--neon-green)] rounded-full neon-pulse"
+            className="w-2 h-2 bg-white rounded-full neon-pulse"
             style={{ animationDelay: '0.5s' }}
           ></div>
           <div
-            className="w-1 h-1 bg-[var(--neon-green)] rounded-full neon-pulse"
+            className="w-1 h-1 bg-white rounded-full neon-pulse"
             style={{ animationDelay: '1s' }}
           ></div>
         </div>
