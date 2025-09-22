@@ -124,7 +124,7 @@ const PieceTray: React.FC = () => {
             onClick={() => setOrientation(orientation === 'white' ? 'black' : 'white')}
             className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition"
           >
-            Flip ({orientation})
+            Flip ({orientation === 'white' ? 'gold' : 'purple'})
           </button>
           <button
             onClick={clearBoard}
