@@ -18,9 +18,7 @@ const AnnotatePanel: React.FC = () => {
 
   return (
     <div className="space-y-3">
-      <div className="text-xs text-[var(--light-gray)]">
-        Modo Annotate activo. Usa el panel de color flotante para seleccionar color.
-      </div>
+      <div className="text-sm text-white">Config Annotate</div>
 
       {/* Color palette */}
       <div className="space-y-2">
@@ -92,10 +90,6 @@ const AnnotatePanel: React.FC = () => {
         >
           Limpiar etiquetas
         </button>
-      </div>
-
-      <div className="text-xs text-[var(--light-gray)]">
-        Consejos: Click+drag dibuja flecha; Shift+click resalta casilla.
       </div>
     </div>
   );

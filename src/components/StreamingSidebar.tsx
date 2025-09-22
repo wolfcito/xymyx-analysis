@@ -163,7 +163,7 @@ const StreamingSidebar: React.FC = () => {
         {activeTab === 'moves' && (
           <div className="h-full flex flex-col">
             <div className="p-4 border-b border-[var(--light-gray)]">
-              <h3 className="text-white font-semibold text-sm tracking-wide">Game Moves</h3>
+              <h3 className="text-white text-sm tracking-wide">Game Moves</h3>
             </div>
             <div className="flex-1 overflow-y-auto">
               <MoveList />
