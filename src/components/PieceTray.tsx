@@ -73,7 +73,7 @@ const PieceTray: React.FC = () => {
       key={piece}
       className={`relative w-13 h-13 cursor-pointer rounded border-2 transition-all duration-200 ${
         selectedPlacementPiece === piece
-          ? 'border-[var(--neon-green)] bg-[var(--neon-green)]/20 neon-glow'
+          ? 'border-[var(--neon-green)] bg-[var(--neon-green)]/20 inset-0'
           : 'border-[var(--light-gray)] bg-[var(--medium-gray)] hover:border-[var(--neon-green)] hover:bg-[var(--neon-green)]/10'
       }`}
       onClick={() => handlePieceClick(piece)}
@@ -98,7 +98,7 @@ const PieceTray: React.FC = () => {
       <h3 className="text-sm text-white tracking-wide">Piece Tray</h3>
       <div className="grid grid-cols-6 gap-2">{pieces.map(renderPiece)}</div>
       {selectedPlacementPiece && (
-        <div className="text-xs text-[var(--neon-green)] font-mono">
+        <div className="text-xs text-white font-mono">
           Selected: {selectedPlacementPiece}. Click any square to place repeatedly. Press Esc to
           clear.
         </div>

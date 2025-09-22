@@ -255,11 +255,7 @@ const StreamingSidebar: React.FC = () => {
           {/* Main Dropdown Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`w-full flex items-center justify-center space-x-2 px-4 py-3 text-sm font-semibold rounded border transition-all duration-200 ${
-              mode === 'play'
-                ? 'bg-[var(--neon-green)] text-black border-[var(--neon-green)] neon-glow'
-                : 'bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)]'
-            }`}
+            className={`w-full flex items-center justify-center space-x-2 px-4 py-3 text-sm font-semibold rounded border transition-all duration-200 bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)]`}
           >
             <span>{getModeIcon(mode)}</span>
             <span>{getModeLabel(mode)}</span>
