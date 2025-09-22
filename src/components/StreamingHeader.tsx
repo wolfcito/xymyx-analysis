@@ -23,7 +23,13 @@ const StreamingHeader: React.FC = () => {
 
       {/* Right side - Social media */}
       <div className="flex items-center space-x-2 lg:space-x-4">
-        <div className="flex items-center space-x-1 lg:space-x-2">
+        <a
+          href="https://www.instagram.com/xymyx.official/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="XYMYX Instagram"
+          className="flex items-center space-x-1 lg:space-x-2 hover:opacity-90 transition"
+        >
           <div className="w-6 h-6 lg:w-8 lg:h-8 rounded flex items-center justify-center">
             <svg
               className="w-4 h-4 lg:w-5 lg:h-5 text-white"
@@ -36,9 +42,15 @@ const StreamingHeader: React.FC = () => {
           <span className="text-white font-medium text-xs lg:text-sm hidden sm:block">
             @xymyx.official
           </span>
-        </div>
+        </a>
 
-        <div className="flex items-center space-x-1 lg:space-x-2">
+        <a
+          href="https://x.com/xymyx_official"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="XYMYX on X"
+          className="flex items-center space-x-1 lg:space-x-2 hover:opacity-90 transition"
+        >
           <div className="w-6 h-6 lg:w-8 lg:h-8 rounded flex items-center justify-center">
             <svg
               className="w-4 h-4 lg:w-5 lg:h-5 text-white"
@@ -51,7 +63,7 @@ const StreamingHeader: React.FC = () => {
           <span className="text-white font-medium text-xs lg:text-sm hidden sm:block">
             @xymyx_official
           </span>
-        </div>
+        </a>
       </div>
     </header>
   );
