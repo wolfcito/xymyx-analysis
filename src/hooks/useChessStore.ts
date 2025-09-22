@@ -12,11 +12,18 @@ import type {
   Mode,
   Orientation,
 } from '@/types';
-import { INITIAL_FEN } from '@/types';
+import { INITIAL_FEN, PIECE_COLORS } from '@/types';
 import { fenToPosition, positionToFen } from '@/lib/fen';
 import { createShareUrl, loadStateFromUrl } from '@/lib/share';
 
 interface ChessStore extends GameState {
+  // Annotation settings
+  annotateColor: string;
+  annotateStroke: number; // px in viewBox units
+  annotateCircleRadius: number;
+  setAnnotateColor: (color: string) => void;
+  setAnnotateStroke: (w: number) => void;
+  setAnnotateCircleRadius: (r: number) => void;
   // Position management
   setPiece: (square: Square, piece: Piece | null) => void;
   clearBoard: () => void;
@@ -77,6 +84,14 @@ export const useChessStore = create<ChessStore>()(
   persist(
     (set, get) => ({
       ...initialState,
+      // Defaults for annotate tools
+      annotateColor: PIECE_COLORS.green,
+      annotateStroke: 2,
+      annotateCircleRadius: 1.6,
+
+      setAnnotateColor: (color) => set({ annotateColor: color }),
+      setAnnotateStroke: (w) => set({ annotateStroke: w }),
+      setAnnotateCircleRadius: (r) => set({ annotateCircleRadius: r }),
 
       setPiece: (square, piece) =>
         set((state) => {
@@ -300,6 +315,9 @@ export const useChessStore = create<ChessStore>()(
         orientation: state.orientation,
         mode: state.mode,
         fen: state.fen,
+        annotateColor: state.annotateColor,
+        annotateStroke: state.annotateStroke,
+        annotateCircleRadius: state.annotateCircleRadius,
       }),
     }
   )

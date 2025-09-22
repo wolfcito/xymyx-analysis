@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { useChessStore } from '@/hooks/useChessStore';
 import type { Square, Arrow, SquareHighlight } from '@/types';
-import { PIECE_COLORS } from '@/types';
+// colors are chosen from AnnotatePanel; no local palette here
 
 const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
 const ranks = [8, 7, 6, 5, 4, 3, 2, 1] as const;
@@ -17,8 +17,10 @@ const AnnotationLayer: React.FC = () => {
     removeArrow,
     addHighlight,
     removeHighlight,
+    annotateColor,
+    annotateStroke,
+    annotateCircleRadius,
   } = useChessStore();
-  const [selectedColor, setSelectedColor] = useState(PIECE_COLORS.green);
   const [isDrawing, setIsDrawing] = useState(false);
   const [startSquare, setStartSquare] = useState<Square | null>(null);
   const [dragPoint, setDragPoint] = useState<{ x: number; y: number } | null>(null);
@@ -77,7 +79,7 @@ const AnnotationLayer: React.FC = () => {
       if (existing) {
         removeHighlight(square);
       } else {
-        addHighlight({ square, color: selectedColor });
+        addHighlight({ square, color: annotateColor });
       }
     } else {
       setIsDrawing(true);
@@ -99,9 +101,9 @@ const AnnotationLayer: React.FC = () => {
         addArrow({
           from: startSquare,
           to: endSquare,
-          color: selectedColor,
+          color: annotateColor,
           style: 'solid',
-          width: 2,
+          width: annotateStroke,
         });
       }
     }
@@ -128,8 +130,8 @@ const AnnotationLayer: React.FC = () => {
     const unitY = dy / length;
 
     const arrowHeadSize = 1.8;
-    const circleRadius = 1.6; // keep circle + line perfectly connected
-    const stroke = 1; // standard annotate stroke
+    const circleRadius = annotateCircleRadius; // keep circle + line perfectly connected
+    const stroke = annotateStroke; // configurable stroke
     const arrowStart = {
       x: start.x + unitX * circleRadius,
       y: start.y + unitY * circleRadius,
@@ -160,7 +162,7 @@ const AnnotationLayer: React.FC = () => {
           stroke={arrow.color}
           strokeWidth={stroke}
           strokeLinecap="round"
-          strokeDasharray={arrow.style === 'dotted' ? '2,2' : 'none'}
+          strokeDasharray={arrow.style === 'dotted' ? '2' : 'none'}
         />
         <polygon
           points={`${arrowEnd.x},${arrowEnd.y} ${arrowHeadLeft.x},${arrowHeadLeft.y} ${arrowHeadRight.x},${arrowHeadRight.y}`}
@@ -189,27 +191,8 @@ const AnnotationLayer: React.FC = () => {
     );
   };
 
-  const colorButton = (color: string, name: string) => (
-    <button
-      key={name}
-      type="button"
-      onClick={() => setSelectedColor(color)}
-      className={`w-6 h-6 rounded border-2 ${
-        selectedColor === color ? 'border-gray-800' : 'border-gray-300'
-      }`}
-      style={{ backgroundColor: color }}
-      title={name}
-    />
-  );
-
   return (
     <div className="relative w-full h-full">
-      {mode === 'annotate' && (
-        <div className="fixed top-20 right-5 z-50 flex gap-1 bg-black/70 p-2 rounded border border-[var(--neon-green)] shadow-lg">
-          {Object.entries(PIECE_COLORS).map(([name, color]) => colorButton(color, name))}
-        </div>
-      )}
-
       <svg
         ref={svgRef}
         aria-label="annotation-layer"
@@ -233,7 +216,7 @@ const AnnotationLayer: React.FC = () => {
             const ux = dx / length;
             const uy = dy / length;
             const head = 1.8;
-            const circleRadius = 1.6;
+            const circleRadius = annotateCircleRadius;
             const e = { x: end.x - ux * 2, y: end.y - uy * 2 };
             const left = {
               x: e.x - ux * head + uy * head * 0.5,
@@ -245,19 +228,19 @@ const AnnotationLayer: React.FC = () => {
             };
             return (
               <g>
-                <circle cx={start.x} cy={start.y} r={circleRadius} fill={selectedColor} />
+                <circle cx={start.x} cy={start.y} r={circleRadius} fill={annotateColor} />
                 <line
                   x1={start.x + ux * circleRadius}
                   y1={start.y + uy * circleRadius}
                   x2={e.x}
                   y2={e.y}
-                  stroke={selectedColor}
-                  strokeWidth={2}
+                  stroke={annotateColor}
+                  strokeWidth={annotateStroke}
                   strokeLinecap="round"
                 />
                 <polygon
                   points={`${e.x},${e.y} ${left.x},${left.y} ${right.x},${right.y}`}
-                  fill={selectedColor}
+                  fill={annotateColor}
                   opacity={0.9}
                 />
               </g>
