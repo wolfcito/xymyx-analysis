@@ -3,7 +3,8 @@ import React from 'react';
 import { useXymyxStore } from '@/hooks/useXymyxStore';
 
 const MoveList: React.FC = () => {
-  const { moves, currentMoveIndex, undoMove, redoMove, goToMove } = useXymyxStore();
+  const { moves, currentMoveIndex, undoMove, redoMove, goToMove, undoPair, redoPair, mode } =
+    useXymyxStore();
 
   const handleMoveClick = (index: number) => {
     goToMove(index);
@@ -12,12 +13,15 @@ const MoveList: React.FC = () => {
   const canUndo = currentMoveIndex >= 0;
   const canRedo = currentMoveIndex < moves.length - 1;
 
+  const onUndo = () => (mode === 'play' ? undoPair() : undoMove());
+  const onRedo = () => (mode === 'play' ? redoPair() : redoMove());
+
   return (
     <div aria-label="move-list" className="space-y-3">
       <div className="flex gap-2 flex-wrap">
         <button
           type="button"
-          onClick={undoMove}
+          onClick={onUndo}
           disabled={!canUndo}
           className="px-3 py-1 text-xs bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)] disabled:opacity-50 disabled:cursor-not-allowed rounded transition-all duration-200"
         >
@@ -25,7 +29,7 @@ const MoveList: React.FC = () => {
         </button>
         <button
           type="button"
-          onClick={redoMove}
+          onClick={onRedo}
           disabled={!canRedo}
           className="px-3 py-1 text-xs bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)] disabled:opacity-50 disabled:cursor-not-allowed rounded transition-all duration-200"
         >
@@ -52,34 +56,58 @@ const MoveList: React.FC = () => {
       {moves.length === 0 ? (
         <div className="text-sm text-[var(--light-gray)] italic">No moves yet</div>
       ) : (
-        <ol className="space-y-1 max-h-64 overflow-y-auto">
-          {moves.map((move, index) => {
-            const moveNumber = Math.floor(index / 2) + 1;
-            const isWhiteMove = index % 2 === 0;
-            const isCurrent = index === currentMoveIndex;
+        <div className="max-h-64 overflow-y-auto space-y-1">
+          {Array.from({ length: Math.ceil(moves.length / 2) }).map((_, rowIdx) => {
+            const whiteIdx = rowIdx * 2;
+            const blackIdx = whiteIdx + 1;
+            const white = moves[whiteIdx];
+            const black = moves[blackIdx];
+            const moveNumber = rowIdx + 1;
+            const isWhiteCurrent = currentMoveIndex === whiteIdx;
+            const isBlackCurrent = currentMoveIndex === blackIdx;
 
             return (
-              <li
-                key={index}
-                onClick={() => handleMoveClick(index)}
-                className={`text-sm cursor-pointer px-2 py-1 rounded transition-all duration-200 ${
-                  isCurrent
-                    ? 'bg-[var(--neon-green)] text-black neon-glow'
-                    : 'hover:bg-[var(--medium-gray)] text-white'
-                }`}
+              <div
+                key={rowIdx}
+                className="grid grid-cols-[auto_1fr_1fr] items-center gap-2 px-2 py-1 rounded hover:bg-[var(--medium-gray)]"
               >
-                {isWhiteMove && (
-                  <span className="text-[var(--light-gray)] mr-1">{moveNumber}.</span>
-                )}
-                <span className="font-mono">
-                  {move.from}
-                  {move.to}
-                </span>
-                {move.captured && <span className="text-red-400 ml-1">x{move.captured}</span>}
-              </li>
+                <div className="text-[var(--light-gray)] text-sm w-6 text-right">{moveNumber}.</div>
+                <button
+                  className={`text-sm font-mono text-left rounded px-1 ${
+                    isWhiteCurrent ? 'bg-yellow-400 text-black' : 'text-yellow-400'
+                  }`}
+                  onClick={() => handleMoveClick(whiteIdx)}
+                  disabled={!white}
+                >
+                  {white ? (
+                    <>
+                      {white.from}
+                      {white.to}
+                    </>
+                  ) : (
+                    <span className="text-[var(--light-gray)]">—</span>
+                  )}
+                </button>
+                <button
+                  className={`text-sm font-mono text-left rounded px-1 ${
+                    isBlackCurrent ? 'bg-purple-400 text-black' : 'text-purple-400'
+                  }`}
+                  onClick={() => handleMoveClick(blackIdx)}
+                  disabled={!black}
+                >
+                  {black ? (
+                    <>
+                      {black.from}
+                      {black.to}
+                    </>
+                  ) : (
+                    <span className="text-[var(--light-gray)]">—</span>
+                  )}
+                </button>
+              </div>
             );
           })}
-        </ol>
+        </div>
       )}
     </div>
   );

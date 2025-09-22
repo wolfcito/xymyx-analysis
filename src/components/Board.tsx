@@ -58,6 +58,15 @@ const Board: React.FC = () => {
 
   const isDark = (fileIdx: number, rankIdx: number) => (fileIdx + rankIdx) % 2 === 1;
 
+  // Clear selection with Escape in play mode
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedSquare(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   const handleSquareClick = (square: Square) => {
     if (mode === 'setup' && selectedPlacementPiece) {
       setPiece(square, selectedPlacementPiece);
@@ -66,9 +75,11 @@ const Board: React.FC = () => {
 
     if (mode === 'play') {
       if (selectedSquare) {
-        if (selectedSquare !== square) {
-          makeMove(selectedSquare, square);
+        if (selectedSquare === square) {
+          setSelectedSquare(null);
+          return;
         }
+        makeMove(selectedSquare, square);
         setSelectedSquare(null);
       } else if (position[square]) {
         setSelectedSquare(square);

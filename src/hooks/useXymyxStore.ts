@@ -30,6 +30,10 @@ interface XymyxStore extends GameState {
   // Setup placement
   selectedPlacementPiece: Piece | null;
   setSelectedPlacementPiece: (p: Piece | null) => void;
+
+  // Pair navigation for play mode
+  undoPair: () => void;
+  redoPair: () => void;
   // Position management
   setPiece: (square: Square, piece: Piece | null) => void;
   clearBoard: () => void;
@@ -104,6 +108,34 @@ export const useXymyxStore = create<XymyxStore>()(
       // Setup placement
       selectedPlacementPiece: null,
       setSelectedPlacementPiece: (p) => set({ selectedPlacementPiece: p }),
+
+      // Pair navigation: move by full move (two plies) when possible
+      undoPair: () =>
+        set((state) => {
+          if (state.currentMoveIndex < 0) return state;
+          const target = state.currentMoveIndex >= 1 ? state.currentMoveIndex - 2 : -1;
+          // reuse goToMove logic locally
+          const position = getInitialPosition();
+          for (let i = 0; i <= target; i++) {
+            const move = state.moves[i];
+            position[move.to] = move.piece;
+            delete position[move.from];
+          }
+          return { position, currentMoveIndex: target, fen: positionToFen(position) };
+        }),
+
+      redoPair: () =>
+        set((state) => {
+          if (state.currentMoveIndex >= state.moves.length - 1) return state;
+          const target = Math.min(state.currentMoveIndex + 2, state.moves.length - 1);
+          const position = getInitialPosition();
+          for (let i = 0; i <= target; i++) {
+            const move = state.moves[i];
+            position[move.to] = move.piece;
+            delete position[move.from];
+          }
+          return { position, currentMoveIndex: target, fen: positionToFen(position) };
+        }),
 
       setPiece: (square, piece) =>
         set((state) => {
