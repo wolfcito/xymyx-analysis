@@ -139,20 +139,19 @@ const StreamingSidebar: React.FC = () => {
       {/* Tab Navigation */}
       <div className="flex">
         {[
-          { id: 'moves', label: 'MOVES', icon: '♟️' },
-          { id: 'chat', label: 'CHAT', icon: '💬' },
-          { id: 'analysis', label: 'ANALYSIS', icon: '📊' },
+          { id: 'moves', label: 'MOVES' },
+          { id: 'chat', label: 'CHAT' },
+          { id: 'analysis', label: 'ANALYSIS' },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as 'moves' | 'chat' | 'analysis')}
             className={`flex-1 py-3 px-4 text-sm transition-all duration-200 ${
               activeTab === tab.id
-                ? 'bg-[var(--neon-green)] text-black'
-                : 'text-[var(--neon-green)] hover:bg-[var(--medium-gray)]'
+                ? 'bg-white/10 text-white'
+                : 'text-white hover:bg-[var(--medium-gray)]'
             }`}
           >
-            <span className="mr-2">{tab.icon}</span>
             {tab.label}
           </button>
         ))}

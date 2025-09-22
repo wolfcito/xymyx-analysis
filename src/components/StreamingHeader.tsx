@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 
 const StreamingHeader: React.FC = () => {
   return (
@@ -7,32 +8,25 @@ const StreamingHeader: React.FC = () => {
       {/* Left side - Logo and branding */}
       <div className="flex items-center space-x-3 lg:space-x-6">
         <div className="flex items-center space-x-2 lg:space-x-3">
-          <div className="w-6 h-6 lg:w-8 lg:h-8 bg-gradient-to-br from-[var(--neon-green)] to-[var(--neon-green-dark)] rounded-full flex items-center justify-center">
-            <span className="text-black font-bold text-sm lg:text-lg">X</span>
+          <div className="relative w-8 h-8 lg:w-10 lg:h-10 rounded-full overflow-hidden bg-black">
+            <Image
+              src="/brand/x-logo.jpg"
+              alt="XYMYX logo"
+              width={40}
+              height={40}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <h1 className="text-lg lg:text-2xl text-white">XYMYX ANALYZER</h1>
-        </div>
-
-        {/* Animated elements */}
-        <div className="hidden lg:flex items-center space-x-2">
-          <div className="w-3 h-3 bg-white rounded-full neon-pulse"></div>
-          <div
-            className="w-2 h-2 bg-white rounded-full neon-pulse"
-            style={{ animationDelay: '0.5s' }}
-          ></div>
-          <div
-            className="w-1 h-1 bg-white rounded-full neon-pulse"
-            style={{ animationDelay: '1s' }}
-          ></div>
+          <h1 className="text-lg lg:text-2xl text-white">XYMYX</h1>
         </div>
       </div>
 
       {/* Right side - Social media */}
       <div className="flex items-center space-x-2 lg:space-x-4">
         <div className="flex items-center space-x-1 lg:space-x-2">
-          <div className="w-6 h-6 lg:w-8 lg:h-8 bg-[var(--neon-green)] rounded flex items-center justify-center">
+          <div className="w-6 h-6 lg:w-8 lg:h-8 rounded flex items-center justify-center">
             <svg
-              className="w-4 h-4 lg:w-5 lg:h-5 text-black"
+              className="w-4 h-4 lg:w-5 lg:h-5 text-white"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -45,9 +39,9 @@ const StreamingHeader: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-1 lg:space-x-2">
-          <div className="w-6 h-6 lg:w-8 lg:h-8 bg-[var(--neon-green)] rounded flex items-center justify-center">
+          <div className="w-6 h-6 lg:w-8 lg:h-8 rounded flex items-center justify-center">
             <svg
-              className="w-4 h-4 lg:w-5 lg:h-5 text-black"
+              className="w-4 h-4 lg:w-5 lg:h-5 text-white"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
