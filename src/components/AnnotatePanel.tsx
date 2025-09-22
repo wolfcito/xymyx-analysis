@@ -14,6 +14,8 @@ const AnnotatePanel: React.FC = () => {
     setAnnotateColor,
     setAnnotateStroke,
     setAnnotateCircleRadius,
+    annotateHighlightOpacity,
+    setAnnotateHighlightOpacity,
   } = useChessStore();
 
   return (
@@ -68,6 +70,20 @@ const AnnotatePanel: React.FC = () => {
             className="flex-1 mx-2"
           />
           <span className="w-8 text-right">{annotateCircleRadius.toFixed(1)}</span>
+        </label>
+
+        <label className="text-xs text-white/70 flex items-center justify-between gap-2">
+          <span>Opacidad highlight</span>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={annotateHighlightOpacity}
+            onChange={(e) => setAnnotateHighlightOpacity(parseFloat(e.target.value))}
+            className="flex-1 mx-2"
+          />
+          <span className="w-10 text-right">{annotateHighlightOpacity.toFixed(2)}</span>
         </label>
       </div>
 

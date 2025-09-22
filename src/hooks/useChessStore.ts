@@ -21,9 +21,11 @@ interface ChessStore extends GameState {
   annotateColor: string;
   annotateStroke: number; // px in viewBox units
   annotateCircleRadius: number;
+  annotateHighlightOpacity: number;
   setAnnotateColor: (color: string) => void;
   setAnnotateStroke: (w: number) => void;
   setAnnotateCircleRadius: (r: number) => void;
+  setAnnotateHighlightOpacity: (o: number) => void;
   // Position management
   setPiece: (square: Square, piece: Piece | null) => void;
   clearBoard: () => void;
@@ -88,10 +90,12 @@ export const useChessStore = create<ChessStore>()(
       annotateColor: PIECE_COLORS.green,
       annotateStroke: 2,
       annotateCircleRadius: 1.6,
+      annotateHighlightOpacity: 0.6,
 
       setAnnotateColor: (color) => set({ annotateColor: color }),
       setAnnotateStroke: (w) => set({ annotateStroke: w }),
       setAnnotateCircleRadius: (r) => set({ annotateCircleRadius: r }),
+      setAnnotateHighlightOpacity: (o) => set({ annotateHighlightOpacity: o }),
 
       setPiece: (square, piece) =>
         set((state) => {
@@ -318,6 +322,7 @@ export const useChessStore = create<ChessStore>()(
         annotateColor: state.annotateColor,
         annotateStroke: state.annotateStroke,
         annotateCircleRadius: state.annotateCircleRadius,
+        annotateHighlightOpacity: state.annotateHighlightOpacity,
       }),
     }
   )

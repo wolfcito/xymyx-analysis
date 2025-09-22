@@ -20,6 +20,7 @@ const AnnotationLayer: React.FC = () => {
     annotateColor,
     annotateStroke,
     annotateCircleRadius,
+    annotateHighlightOpacity,
   } = useChessStore();
   const [isDrawing, setIsDrawing] = useState(false);
   const [startSquare, setStartSquare] = useState<Square | null>(null);
@@ -186,7 +187,7 @@ const AnnotationLayer: React.FC = () => {
         width={100 / 8}
         height={100 / 8}
         fill={highlight.color}
-        fillOpacity={0.3}
+        fillOpacity={annotateHighlightOpacity}
       />
     );
   };
