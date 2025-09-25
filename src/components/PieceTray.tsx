@@ -55,8 +55,10 @@ const PieceTray: React.FC = () => {
     setInitialPosition,
   } = useXymyxStore();
   const [squareTransparency, setSquareTransparency] = React.useState<number>(0);
-  const [pieceSize, setPieceSize] = React.useState<number>(1);
-  const [boardSize, setBoardSize] = React.useState<number>(1);
+  const [pieceSize, setPieceSize] = React.useState<number>(1.5);
+  const [boardSize, setBoardSize] = React.useState<number>(0.9);
+  const [boardOffsetX, setBoardOffsetX] = React.useState<number>(3);
+  const [boardOffsetY, setBoardOffsetY] = React.useState<number>(-3);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -70,7 +72,9 @@ const PieceTray: React.FC = () => {
   useEffect(() => {
     document.documentElement.style.setProperty('--piece-scale', pieceSize.toString());
     document.documentElement.style.setProperty('--board-scale', boardSize.toString());
-  }, [pieceSize, boardSize]);
+    document.documentElement.style.setProperty('--board-offset-x', `${boardOffsetX}px`);
+    document.documentElement.style.setProperty('--board-offset-y', `${boardOffsetY}px`);
+  }, [pieceSize, boardSize, boardOffsetX, boardOffsetY]);
 
   if (mode !== 'setup') {
     return null;
@@ -197,6 +201,40 @@ const PieceTray: React.FC = () => {
             className="flex-1 mx-2"
           />
           <span className="w-8 text-right">{boardSize.toFixed(1)}</span>
+        </label>
+        <label className="text-xs text-white/70 flex items-center justify-between gap-2">
+          <span>Board X Position</span>
+          <input
+            type="range"
+            min={-100}
+            max={100}
+            step={1}
+            value={boardOffsetX}
+            onChange={(e) => {
+              const v = parseInt(e.target.value);
+              setBoardOffsetX(v);
+              document.documentElement.style.setProperty('--board-offset-x', `${v}px`);
+            }}
+            className="flex-1 mx-2"
+          />
+          <span className="w-8 text-right">{boardOffsetX}</span>
+        </label>
+        <label className="text-xs text-white/70 flex items-center justify-between gap-2">
+          <span>Board Y Position</span>
+          <input
+            type="range"
+            min={-100}
+            max={100}
+            step={1}
+            value={boardOffsetY}
+            onChange={(e) => {
+              const v = parseInt(e.target.value);
+              setBoardOffsetY(v);
+              document.documentElement.style.setProperty('--board-offset-y', `${v}px`);
+            }}
+            className="flex-1 mx-2"
+          />
+          <span className="w-8 text-right">{boardOffsetY}</span>
         </label>
       </div>
     </div>

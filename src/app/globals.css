@@ -12,6 +12,8 @@
   --square-transparency: 0;
   --piece-scale: 1;
   --board-scale: 1;
+  --board-offset-x: 0px;
+  --board-offset-y: 0px;
 }
 
 @theme inline {
@@ -26,6 +28,8 @@
   --color-square-transparency: var(--square-transparency);
   --color-piece-scale: var(--piece-scale);
   --color-board-scale: var(--board-scale);
+  --color-board-offset-x: var(--board-offset-x);
+  --color-board-offset-y: var(--board-offset-y);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -249,9 +253,9 @@ body {
   background: var(--neon-green-dark);
 }
 
-/* Piece and Board scaling */
+/* Piece and Board scaling and positioning */
 .board-container {
-  transform: scale(var(--board-scale));
+  transform: scale(var(--board-scale)) translate(var(--board-offset-x), var(--board-offset-y));
   transform-origin: center;
   transition: transform 0.3s ease;
 }
