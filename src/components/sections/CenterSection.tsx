@@ -10,7 +10,7 @@ const CenterSection: React.FC = () => {
     <div className="flex-1 relative">
       <Image src="/scene/004_tablero.png" alt="Board background" fill className="object-contain" />
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative aspect-square w-full h-full max-w-[min(100%,70vh)] max-h-[min(100%,70vh)]">
+        <div className="board-container relative aspect-square w-full h-full max-w-[min(100%,70vh)] max-h-[min(100%,70vh)]">
           <div className="absolute inset-0 z-10 pointer-events-none">
             <HighlightsLayer />
           </div>
@@ -20,13 +20,17 @@ const CenterSection: React.FC = () => {
           <AnnotationLayer />
         </div>
       </div>
-      {/* Board letters overlay */}
-      <Image
-        src="/scene/003_letras-borde-tablero.png"
-        alt="Board letters"
-        fill
-        className="object-contain pointer-events-none z-25"
-      />
+      {/* Board letters overlay - scales with board */}
+      <div className="board-container absolute inset-0 flex items-center justify-center z-25">
+        <div className="relative aspect-square w-full h-full max-w-[min(100%,70vh)] max-h-[min(100%,70vh)]">
+          <Image
+            src="/scene/003_letras-borde-tablero.png"
+            alt="Board letters"
+            fill
+            className="object-contain pointer-events-none"
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -55,6 +55,8 @@ const PieceTray: React.FC = () => {
     setInitialPosition,
   } = useXymyxStore();
   const [squareTransparency, setSquareTransparency] = React.useState<number>(0);
+  const [pieceSize, setPieceSize] = React.useState<number>(1);
+  const [boardSize, setBoardSize] = React.useState<number>(1);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -63,6 +65,12 @@ const PieceTray: React.FC = () => {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [setSelectedPlacementPiece]);
+
+  // Initialize CSS variables
+  useEffect(() => {
+    document.documentElement.style.setProperty('--piece-scale', pieceSize.toString());
+    document.documentElement.style.setProperty('--board-scale', boardSize.toString());
+  }, [pieceSize, boardSize]);
 
   if (mode !== 'setup') {
     return null;
@@ -155,6 +163,40 @@ const PieceTray: React.FC = () => {
             className="flex-1 mx-2"
           />
           <span className="w-8 text-right">{squareTransparency.toFixed(2)}</span>
+        </label>
+        <label className="text-xs text-white/70 flex items-center justify-between gap-2">
+          <span>Piece Size</span>
+          <input
+            type="range"
+            min={0.5}
+            max={2}
+            step={0.1}
+            value={pieceSize}
+            onChange={(e) => {
+              const v = parseFloat(e.target.value);
+              setPieceSize(v);
+              document.documentElement.style.setProperty('--piece-scale', v.toString());
+            }}
+            className="flex-1 mx-2"
+          />
+          <span className="w-8 text-right">{pieceSize.toFixed(1)}</span>
+        </label>
+        <label className="text-xs text-white/70 flex items-center justify-between gap-2">
+          <span>Board Size</span>
+          <input
+            type="range"
+            min={0.7}
+            max={1.5}
+            step={0.1}
+            value={boardSize}
+            onChange={(e) => {
+              const v = parseFloat(e.target.value);
+              setBoardSize(v);
+              document.documentElement.style.setProperty('--board-scale', v.toString());
+            }}
+            className="flex-1 mx-2"
+          />
+          <span className="w-8 text-right">{boardSize.toFixed(1)}</span>
         </label>
       </div>
     </div>
