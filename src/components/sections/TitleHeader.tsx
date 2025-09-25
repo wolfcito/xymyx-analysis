@@ -10,7 +10,8 @@ const TitleHeader: React.FC = () => {
         alt="XYMYX Title"
         width={800}
         height={64}
-        className="object-contain max-w-full h-full"
+        sizes="100vw"
+        className="w-full h-auto object-contain"
         priority
       />
     </div>

@@ -29,7 +29,7 @@ export default function HomePage() {
         </div>
 
         {/* Main layout for web and tablets - Scene Frame Layout */}
-        <div className="hidden sm:block flex-1 overflow-hidden relative">
+        <div className="mx-14 my-12 hidden sm:block flex-1 overflow-hidden relative">
           {/* Main Frame Border */}
           <div className="absolute inset-0 pointer-events-none z-50">
             <Image src="/scene/001_marco.png" alt="Frame border" fill className="object-cover" />
