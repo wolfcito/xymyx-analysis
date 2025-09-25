@@ -48,7 +48,7 @@ const AnnotatePanel: React.FC = () => {
           <span>Grosor</span>
           <input
             type="range"
-            min={1}
+            min={0.1}
             max={4}
             step={0.2}
             value={annotateStroke}
