@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import { RotateCcw, Trash2, Home } from 'lucide-react';
 import type { Piece } from '@/types';
 import { useXymyxStore } from '@/hooks/useXymyxStore';
 
@@ -131,24 +132,56 @@ const PieceTray: React.FC = () => {
       {/* Board controls relocated here */}
       <div className="mt-4 space-y-3">
         <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => setOrientation(orientation === 'white' ? 'black' : 'white')}
-            className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition"
-          >
-            Flip ({orientation === 'white' ? 'gold' : 'purple'})
-          </button>
-          <button
-            onClick={clearBoard}
-            className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition"
-          >
-            Clear Board
-          </button>
-          <button
-            onClick={setInitialPosition}
-            className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition col-span-2"
-          >
-            Initial Position
-          </button>
+          {/* Flip Board Button */}
+          <div className="panel-button">
+            <Image
+              src="/scene/010_background-btn2.png"
+              alt="Button background"
+              fill
+              className="panel-button-bg"
+            />
+            <button
+              onClick={() => setOrientation(orientation === 'white' ? 'black' : 'white')}
+              className="panel-button-text flex items-center justify-center"
+              title={`Flip to ${orientation === 'white' ? 'purple' : 'gold'}`}
+            >
+              <RotateCcw className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Clear Board Button */}
+          <div className="panel-button">
+            <Image
+              src="/scene/010_background-btn2.png"
+              alt="Button background"
+              fill
+              className="panel-button-bg"
+            />
+            <button
+              onClick={clearBoard}
+              className="panel-button-text flex items-center justify-center"
+              title="Clear Board"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Initial Position Button */}
+          <div className="panel-button col-span-2">
+            <Image
+              src="/scene/010_background-btn2.png"
+              alt="Button background"
+              fill
+              className="panel-button-bg"
+            />
+            <button
+              onClick={setInitialPosition}
+              className="panel-button-text flex items-center justify-center"
+              title="Initial Position"
+            >
+              <Home className="w-4 h-4" />
+            </button>
+          </div>
         </div>
         <label className="text-xs text-white/70 flex items-center justify-between gap-2">
           <span>Square Transparency</span>
