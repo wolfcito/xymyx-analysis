@@ -56,8 +56,8 @@ const PieceTray: React.FC = () => {
     setInitialPosition,
   } = useXymyxStore();
   const [squareTransparency, setSquareTransparency] = React.useState<number>(0);
-  const [pieceSize, setPieceSize] = React.useState<number>(1.5);
-  const [boardSize, setBoardSize] = React.useState<number>(0.9);
+  const [pieceSize, setPieceSize] = React.useState<number>(1.3);
+  const [boardSize, setBoardSize] = React.useState<number>(0.95);
   const [boardOffsetX, setBoardOffsetX] = React.useState<number>(3);
   const [boardOffsetY, setBoardOffsetY] = React.useState<number>(-3);
 

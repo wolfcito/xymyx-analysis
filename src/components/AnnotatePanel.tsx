@@ -1,5 +1,7 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
+import { ArrowUpRight, Square, Type } from 'lucide-react';
 import { useXymyxStore } from '@/hooks/useXymyxStore';
 import { PIECE_COLORS } from '@/types';
 
@@ -87,25 +89,57 @@ const AnnotatePanel: React.FC = () => {
         </label>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        <button
-          className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition"
-          onClick={clearArrows}
-        >
-          Limpiar flechas
-        </button>
-        <button
-          className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition"
-          onClick={clearHighlights}
-        >
-          Limpiar casillas
-        </button>
-        <button
-          className="px-3 py-2 text-sm bg-[var(--medium-gray)] text-white border border-[var(--light-gray)] rounded hover:border-[var(--neon-green)] transition col-span-2"
-          onClick={clearLabels}
-        >
-          Limpiar etiquetas
-        </button>
+      <div className="grid grid-cols-3 gap-2">
+        {/* Clear Arrows Button */}
+        <div className="panel-button">
+          <Image
+            src="/scene/010_background-btn2.png"
+            alt="Button background"
+            fill
+            className="panel-button-bg"
+          />
+          <button
+            onClick={clearArrows}
+            className="panel-button-text flex items-center justify-center"
+            title="Limpiar flechas"
+          >
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Clear Highlights Button */}
+        <div className="panel-button">
+          <Image
+            src="/scene/010_background-btn2.png"
+            alt="Button background"
+            fill
+            className="panel-button-bg"
+          />
+          <button
+            onClick={clearHighlights}
+            className="panel-button-text flex items-center justify-center"
+            title="Limpiar casillas"
+          >
+            <Square className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Clear Labels Button */}
+        <div className="panel-button">
+          <Image
+            src="/scene/010_background-btn2.png"
+            alt="Button background"
+            fill
+            className="panel-button-bg"
+          />
+          <button
+            onClick={clearLabels}
+            className="panel-button-text flex items-center justify-center"
+            title="Limpiar etiquetas"
+          >
+            <Type className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );
