@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 :root {
   --background: #000000;
@@ -261,12 +262,14 @@ body {
   /* Fixed board dimensions for consistent display across devices */
   width: 480px;
   height: 480px;
-  flex-shrink: 0; /* Prevent shrinking in flex containers */
+  flex-shrink: 0;
+  /* Prevent shrinking in flex containers */
 }
 
 /* Board background image sizing - max 30px beyond ideal dimensions */
 .board-background-image {
-  width: 510px !important; /* 480px + 30px */
+  width: 510px !important;
+  /* 480px + 30px */
   height: 510px !important;
   max-width: 510px !important;
   max-height: 510px !important;
@@ -280,7 +283,8 @@ body {
   }
 
   .board-background-image {
-    width: 430px !important; /* 400px + 30px */
+    width: 430px !important;
+    /* 400px + 30px */
     height: 430px !important;
     max-width: 430px !important;
     max-height: 430px !important;
@@ -294,7 +298,8 @@ body {
   }
 
   .board-background-image {
-    width: 390px !important; /* 360px + 30px */
+    width: 390px !important;
+    /* 360px + 30px */
     height: 390px !important;
     max-width: 390px !important;
     max-height: 390px !important;

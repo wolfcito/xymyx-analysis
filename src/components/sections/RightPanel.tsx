@@ -21,41 +21,17 @@ const RightPanel: React.FC = () => {
           fill
           className="object-cover rounded-lg"
         />
-        <div className="relative z-10 flex flex-col h-full p-4">
-          {/* Tab Switcher */}
-          <div className="flex mb-4 space-x-2">
-            <button
-              onClick={() => setActiveTab('info')}
-              className={`flex-1 py-2 px-3 text-xs rounded transition-colors ${
-                activeTab === 'info'
-                  ? 'bg-[var(--neon-green)] text-black'
-                  : 'bg-black/30 text-white hover:text-[var(--neon-green)]'
-              }`}
-            >
-              INFO
-            </button>
-            <button
-              onClick={() => setActiveTab('tools')}
-              className={`flex-1 py-2 px-3 text-xs rounded transition-colors ${
-                activeTab === 'tools'
-                  ? 'bg-[var(--neon-green)] text-black'
-                  : 'bg-black/30 text-white hover:text-[var(--neon-green)]'
-              }`}
-            >
-              TOOLS
-            </button>
-          </div>
-
+        <div className="relative z-10 flex flex-col h-full">
           {/* Content based on active tab */}
           {activeTab === 'info' ? (
-            <div className="flex-1 flex flex-col space-y-4">
+            <div className="flex-1 flex flex-col space-y-2">
               {/* 1. Video Streaming Section */}
-              <div className="bg-black/30 rounded p-3">
+              <div className="bg-black/30 rounded">
                 <StreamPreview />
               </div>
 
               {/* 2. Representative Image Section */}
-              <div className="bg-black/30 rounded p-3 flex-1">
+              <div className="bg-black/30 rounded">
                 <div className="relative w-full aspect-[3/2] rounded overflow-hidden">
                   <Image
                     src="/scene/005_fondo-panel.png"
@@ -109,6 +85,30 @@ const RightPanel: React.FC = () => {
               )}
             </div>
           )}
+
+          {/* Tab Switcher */}
+          <div className="flex space-x-2">
+            <button
+              onClick={() => setActiveTab('info')}
+              className={`flex-1 py-2 px-3 text-xs rounded transition-colors ${
+                activeTab === 'info'
+                  ? 'bg-[var(--neon-green)] text-black'
+                  : 'bg-black/30 text-white hover:text-[var(--neon-green)]'
+              }`}
+            >
+              INFO
+            </button>
+            <button
+              onClick={() => setActiveTab('tools')}
+              className={`flex-1 py-2 px-3 text-xs rounded transition-colors ${
+                activeTab === 'tools'
+                  ? 'bg-[var(--neon-green)] text-black'
+                  : 'bg-black/30 text-white hover:text-[var(--neon-green)]'
+              }`}
+            >
+              TOOLS
+            </button>
+          </div>
         </div>
       </div>
     </div>
