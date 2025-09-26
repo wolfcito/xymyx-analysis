@@ -6,6 +6,7 @@ import PieceTray from '@/components/PieceTray';
 import Toolbar from '@/components/Toolbar';
 import AnnotatePanel from '@/components/AnnotatePanel';
 import MoveList from '@/components/MoveList';
+import StreamPreview from '@/components/StreamPreview';
 
 const RightPanel: React.FC = () => {
   const { mode } = useXymyxStore();
@@ -47,23 +48,48 @@ const RightPanel: React.FC = () => {
 
           {/* Content based on active tab */}
           {activeTab === 'info' ? (
-            <div className="flex-1 flex flex-col">
-              {/* Piece display area */}
-              <div className="flex-1 flex flex-col items-center justify-center mb-4">
-                <div className="w-32 h-32 mb-4 flex items-center justify-center relative">
+            <div className="flex-1 flex flex-col space-y-4">
+              {/* 1. Video Streaming Section */}
+              <div className="bg-black/30 rounded p-3">
+                <StreamPreview />
+              </div>
+
+              {/* 2. Representative Image Section */}
+              <div className="bg-black/30 rounded p-3 flex-1">
+                <div className="relative w-full aspect-[3/2] rounded overflow-hidden">
                   <Image
-                    src="/pieces/png/xymyx/rey-dorado.png"
-                    alt="Selected piece"
-                    width={128}
-                    height={128}
-                    className="object-contain"
+                    src="/scene/005_fondo-panel.png"
+                    alt="Scene representation"
+                    fill
+                    className="object-cover"
                   />
+                  <div className="absolute inset-0 bg-[var(--neon-green)]/10"></div>
+                  <div className="absolute bottom-1 right-1 text-[var(--neon-green)] text-[10px] font-mono">
+                    XYMYX
+                  </div>
                 </div>
               </div>
 
-              {/* Info text area */}
-              <div className="bg-black/30 rounded p-3 text-white text-xs leading-relaxed">
-                <p>NUEVA PIEZA AÑADIDA ESPECIAL EN FORMA DE ESPADA QUE SOLO EXISTE EN EL TABLERO</p>
+              {/* 3. Text Information Section */}
+              <div className="bg-black/30 rounded p-3">
+                <h4 className="text-[var(--neon-green)] text-xs font-bold mb-2 tracking-wider">
+                  INFO
+                </h4>
+                <div className="text-white text-xs leading-relaxed space-y-2">
+                  <p>
+                    NUEVA PIEZA AÑADIDA ESPECIAL EN FORMA DE ESPADA QUE SOLO EXISTE EN EL TABLERO
+                  </p>
+                  <div className="border-t border-white/10 pt-2">
+                    <div className="flex justify-between text-[10px] text-white/70">
+                      <span>STATUS:</span>
+                      <span className="text-[var(--neon-green)]">ACTIVE</span>
+                    </div>
+                    <div className="flex justify-between text-[10px] text-white/70">
+                      <span>MODE:</span>
+                      <span className="text-[var(--neon-green)] uppercase">{mode}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           ) : (

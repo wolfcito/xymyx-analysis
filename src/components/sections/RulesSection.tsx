@@ -20,7 +20,7 @@ const RulesSection: React.FC = () => {
               className="object-cover"
             />
             <button className="relative z-10 w-full py-2 px-3 text-left text-white text-xs hover:text-[var(--neon-green)] transition-colors">
-              <span className="mr-2 text-[var(--neon-green)]">{index + 1}</span>
+              <span className="mr-8 text-[var(--neon-green)]">{index + 1}</span>
               {rule}
             </button>
           </div>

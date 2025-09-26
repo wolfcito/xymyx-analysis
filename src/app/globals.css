@@ -258,6 +258,47 @@ body {
   transform: scale(var(--board-scale)) translate(var(--board-offset-x), var(--board-offset-y));
   transform-origin: center;
   transition: transform 0.3s ease;
+  /* Fixed board dimensions for consistent display across devices */
+  width: 480px;
+  height: 480px;
+  flex-shrink: 0; /* Prevent shrinking in flex containers */
+}
+
+/* Board background image sizing - max 30px beyond ideal dimensions */
+.board-background-image {
+  width: 510px !important; /* 480px + 30px */
+  height: 510px !important;
+  max-width: 510px !important;
+  max-height: 510px !important;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1280px) {
+  .board-container {
+    width: 400px;
+    height: 400px;
+  }
+
+  .board-background-image {
+    width: 430px !important; /* 400px + 30px */
+    height: 430px !important;
+    max-width: 430px !important;
+    max-height: 430px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .board-container {
+    width: 360px;
+    height: 360px;
+  }
+
+  .board-background-image {
+    width: 390px !important; /* 360px + 30px */
+    height: 390px !important;
+    max-width: 390px !important;
+    max-height: 390px !important;
+  }
 }
 
 [role='grid'][aria-label='xymyx-board'] img,
