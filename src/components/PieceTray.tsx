@@ -95,7 +95,7 @@ const PieceTray: React.FC = () => {
       className={`relative w-13 h-13 cursor-pointer rounded border-2 transition-all duration-200 ${
         selectedPlacementPiece === piece
           ? 'border-[var(--neon-green)] bg-[var(--neon-green)]/20 inset-0'
-          : 'border-[var(--light-gray)] bg-[var(--medium-gray)] hover:border-[var(--neon-green)] hover:bg-[var(--neon-green)]/10'
+          : 'border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:bg-[var(--neon-green)]/10'
       }`}
       onClick={() => handlePieceClick(piece)}
       draggable
@@ -120,8 +120,7 @@ const PieceTray: React.FC = () => {
       <div className="grid grid-cols-6 gap-2">{pieces.map(renderPiece)}</div>
       {selectedPlacementPiece ? (
         <div className="text-xs text-white font-mono">
-          Selected: {selectedPlacementPiece}. Click any square to place repeatedly. Press Esc to
-          clear.
+          Selected: {selectedPlacementPiece}. Click an square to place. Press Esc to clear.
         </div>
       ) : (
         <div className="text-xs text-white font-mono">
@@ -191,7 +190,7 @@ const PieceTray: React.FC = () => {
             type="range"
             min={0.7}
             max={1.5}
-            step={0.1}
+            step={0.05}
             value={boardSize}
             onChange={(e) => {
               const v = parseFloat(e.target.value);

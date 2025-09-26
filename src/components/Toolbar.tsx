@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useXymyxStore } from '@/hooks/useXymyxStore';
 import type { Mode } from '@/types';
 
@@ -111,24 +112,32 @@ const Toolbar: React.FC = () => {
   return (
     <div className="relative">
       {/* Main Dropdown Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center space-x-2 px-4 py-2 text-sm font-semibold rounded border transition-all duration-200 ${
-          mode === 'play'
-            ? 'bg-[var(--neon-green)] text-black border-[var(--neon-green)] neon-glow'
-            : 'bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)] hover:text-[var(--neon-green)]'
-        }`}
-      >
-        <span>{getModeIcon(mode)}</span>
-        <span>{getModeLabel(mode)}</span>
-        <svg
-          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          fill="currentColor"
-          viewBox="0 0 24 24"
+      <div className="panel-button">
+        <Image
+          src="/scene/010_background-btn2.png"
+          alt="Button background"
+          fill
+          className="panel-button-bg"
+        />
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`panel-button-text flex items-center justify-between ${
+            mode === 'play' ? 'text-[var(--neon-green)]' : ''
+          }`}
         >
-          <path d="M7 10l5 5 5-5z" />
-        </svg>
-      </button>
+          <div className="flex items-center space-x-2">
+            <span>{getModeIcon(mode)}</span>
+            <span>{getModeLabel(mode)}</span>
+          </div>
+          <svg
+            className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </button>
+      </div>
 
       {/* Dropdown Menu */}
       {isOpen && (
@@ -140,19 +149,26 @@ const Toolbar: React.FC = () => {
             </div>
 
             {(['setup', 'annotate', 'play'] as Mode[]).map((modeOption) => (
-              <button
-                key={modeOption}
-                onClick={() => handleModeChange(modeOption)}
-                className={`w-full flex items-center space-x-3 px-3 py-2 text-sm rounded transition-all duration-200 ${
-                  mode === modeOption
-                    ? 'bg-[var(--neon-green)] text-black'
-                    : 'text-white hover:bg-[var(--medium-gray)] hover:text-[var(--neon-green)]'
-                }`}
-              >
-                <span>{getModeIcon(modeOption)}</span>
-                <span>{getModeLabel(modeOption)}</span>
-                {mode === modeOption && <span className="ml-auto text-xs">✓</span>}
-              </button>
+              <div key={modeOption} className="panel-button">
+                <Image
+                  src="/scene/010_background-btn2.png"
+                  alt="Button background"
+                  fill
+                  className="panel-button-bg"
+                />
+                <button
+                  onClick={() => handleModeChange(modeOption)}
+                  className={`panel-button-text flex items-center justify-between ${
+                    mode === modeOption ? 'text-[var(--neon-green)]' : ''
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <span>{getModeIcon(modeOption)}</span>
+                    <span>{getModeLabel(modeOption)}</span>
+                  </div>
+                  {mode === modeOption && <span className="text-xs">✓</span>}
+                </button>
+              </div>
             ))}
 
             {/* Separator */}

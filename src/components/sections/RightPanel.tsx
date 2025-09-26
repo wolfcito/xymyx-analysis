@@ -15,12 +15,6 @@ const RightPanel: React.FC = () => {
   return (
     <div className="w-80 flex flex-col h-full">
       <div className="relative flex-1">
-        <Image
-          src="/scene/005_fondo-panel.png"
-          alt="Panel background"
-          fill
-          className="object-cover rounded-lg"
-        />
         <div className="relative z-10 flex flex-col h-full">
           {/* Content based on active tab */}
           {activeTab === 'info' ? (
@@ -69,7 +63,7 @@ const RightPanel: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="flex-1 overflow-y-auto space-y-4">
+            <div className="flex-1 space-y-4">
               {/* Mode selector */}
               <div className="mb-4">
                 <Toolbar />
@@ -88,26 +82,38 @@ const RightPanel: React.FC = () => {
 
           {/* Tab Switcher */}
           <div className="flex space-x-2">
-            <button
-              onClick={() => setActiveTab('info')}
-              className={`flex-1 py-2 px-3 text-xs rounded transition-colors ${
-                activeTab === 'info'
-                  ? 'bg-[var(--neon-green)] text-black'
-                  : 'bg-black/30 text-white hover:text-[var(--neon-green)]'
-              }`}
-            >
-              INFO
-            </button>
-            <button
-              onClick={() => setActiveTab('tools')}
-              className={`flex-1 py-2 px-3 text-xs rounded transition-colors ${
-                activeTab === 'tools'
-                  ? 'bg-[var(--neon-green)] text-black'
-                  : 'bg-black/30 text-white hover:text-[var(--neon-green)]'
-              }`}
-            >
-              TOOLS
-            </button>
+            <div className="panel-button flex-1">
+              <Image
+                src="/scene/010_background-btn2.png"
+                alt="Button background"
+                fill
+                className="panel-button-bg"
+              />
+              <button
+                onClick={() => setActiveTab('info')}
+                className={`panel-button-text ${
+                  activeTab === 'info' ? 'text-[var(--neon-green)]' : ''
+                }`}
+              >
+                INFO
+              </button>
+            </div>
+            <div className="panel-button flex-1">
+              <Image
+                src="/scene/010_background-btn2.png"
+                alt="Button background"
+                fill
+                className="panel-button-bg"
+              />
+              <button
+                onClick={() => setActiveTab('tools')}
+                className={`panel-button-text ${
+                  activeTab === 'tools' ? 'text-[var(--neon-green)]' : ''
+                }`}
+              >
+                TOOLS
+              </button>
+            </div>
           </div>
         </div>
       </div>

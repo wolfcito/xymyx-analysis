@@ -312,3 +312,39 @@ body {
   transform-origin: center;
   transition: transform 0.3s ease;
 }
+
+/* Panel Button Styling - consistent with ACLARACIONES style */
+.panel-button {
+  position: relative;
+  height: 32px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.panel-button-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel-button-text {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  color: white;
+  font-size: 12px;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.panel-button-text:hover {
+  color: var(--neon-green);
+}
