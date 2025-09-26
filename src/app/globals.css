@@ -4,8 +4,9 @@
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --neon-green: #47c0db;
-  --neon-green-dark: #47c0db;
+  /* Softer, more refined teal vs. previous stronger tone */
+  --neon-green: #3bb2cb;
+  --neon-green-dark: #2a93a9;
   --accent-blue: #00bfff;
   --dark-gray: #1a1a1a;
   --medium-gray: #2a2a2a;
@@ -45,14 +46,13 @@ body {
 /* Neon glow effects */
 .neon-glow {
   box-shadow:
-    0 0 5px var(--neon-green),
-    0 0 10px var(--neon-green),
-    0 0 15px var(--neon-green);
+    0 0 4px color-mix(in srgb, var(--neon-green) 70%, transparent),
+    0 0 8px color-mix(in srgb, var(--neon-green) 50%, transparent);
 }
 
 .neon-border {
-  border: 2px solid var(--neon-green);
-  box-shadow: 0 0 10px var(--neon-green);
+  border: 1px solid color-mix(in srgb, var(--neon-green) 85%, transparent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--neon-green) 45%, transparent);
 }
 
 .neon-text {
@@ -347,4 +347,85 @@ body {
 
 .panel-button-text:hover {
   color: var(--neon-green);
+}
+
+/* Custom styling for all range inputs used in control panels */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  /* thinner track */
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    var(--neon-green) 0%,
+    var(--neon-green) 50%,
+    var(--neon-green) 100%
+  );
+  outline: none;
+}
+
+/* WebKit track and thumb */
+input[type='range']::-webkit-slider-runnable-track {
+  height: 1px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    var(--neon-green) 0%,
+    var(--neon-green) 50%,
+    var(--neon-green) 100%
+  );
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: goldenrod;
+  /* border: 1px solid var(--neon-green); */
+  box-shadow: 0 0 0 3px color-mix(in srgb, goldenrod 20%, transparent);
+  margin-top: -4px;
+  /* centers thumb on 4px track */
+}
+
+/* Firefox track and thumb */
+input[type='range']::-moz-range-track {
+  height: 1px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    var(--neon-green) 0%,
+    var(--neon-green) 50%,
+    var(--neon-green) 100%
+  );
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: white;
+  /* border: 1px solid var(--neon-green); */
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--neon-green) 20%, transparent);
+}
+
+/* Edge/IE */
+input[type='range']::-ms-track {
+  height: 4px;
+  border-color: transparent;
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    var(--neon-green) 0%,
+    var(--neon-green) 50%,
+    var(--neon-green) 100%
+  );
+}
+
+/* Subtle focus ring */
+input[type='range']:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--neon-green) 28%, transparent);
 }

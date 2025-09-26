@@ -131,7 +131,7 @@ const PieceTray: React.FC = () => {
 
       {/* Board controls relocated here */}
       <div className="mt-4 space-y-3">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           {/* Flip Board Button */}
           <div className="panel-button">
             <Image
@@ -167,7 +167,7 @@ const PieceTray: React.FC = () => {
           </div>
 
           {/* Initial Position Button */}
-          <div className="panel-button col-span-2">
+          <div className="panel-button">
             <Image
               src="/scene/010_background-btn2.png"
               alt="Button background"

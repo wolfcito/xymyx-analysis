@@ -24,8 +24,8 @@ const AnnotatePanel: React.FC = () => {
 
       {/* Color palette */}
       <div className="space-y-2">
-        <div className="text-xs text-white/70">Color</div>
         <div className="flex gap-2 flex-wrap">
+          <div className="text-xs text-white/70">Color</div>
           {Object.entries(PIECE_COLORS).map(([name, color]) => (
             <button
               key={name}
