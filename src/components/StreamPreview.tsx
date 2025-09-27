@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { Camera, CameraOff } from 'lucide-react';
 
 const bgUrl = '/stream/overlay-bg.png';
 const placeholderUrl = '/stream/placeholder.png';
@@ -118,13 +119,14 @@ const StreamPreview: React.FC = () => {
                 <h3 className="text-white text-sm tracking-wide">Live Stream</h3>
                 <button
                   onClick={handleToggle}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded border transition-colors pointer-events-auto ${
+                  className={`p-2 rounded border transition-colors pointer-events-auto flex items-center justify-center ${
                     isOn
                       ? 'bg-[var(--neon-green)] text-black border-[var(--neon-green)]'
                       : 'bg-[var(--medium-gray)] text-white border-[var(--light-gray)] hover:border-[var(--neon-green)]'
                   }`}
+                  title={isOn ? 'Apagar cámara' : 'Encender cámara'}
                 >
-                  {isOn ? 'Apagar cámara' : 'Encender cámara'}
+                  {isOn ? <CameraOff className="w-4 h-4" /> : <Camera className="w-4 h-4" />}
                 </button>
               </div>
             </div>
